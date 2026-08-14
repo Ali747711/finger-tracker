@@ -6,7 +6,7 @@ calls instead, so nothing is posted to the OS.
 
 from pynput.mouse import Button
 
-from mac_actions import SWIPE_KEYCODES, MacController
+from mac_actions import SWIPE_KEYCODES, MacController, hotkey_script
 
 
 class FakeMouse:
@@ -81,6 +81,13 @@ class TestDispatch:
         # silently fire some other shortcut
         assert SWIPE_KEYCODES == {'swipe_left': 123, 'swipe_right': 124,
                                   'swipe_down': 125, 'swipe_up': 126}
+
+    def test_hotkey_script_presses_ctrl_and_the_key(self):
+        # Quartz-posted events reach apps but are never matched against
+        # Mission Control shortcuts; System Events is what works
+        script = hotkey_script(126)
+        assert script == ('tell application "System Events" to '
+                          'key code 126 using control down')
 
     def test_unknown_hotkey_is_ignored(self):
         controller, _, hotkey = make_controller()

@@ -1,11 +1,17 @@
-"""Executes abstract control actions on macOS via pynput.
+"""Executes abstract control actions on macOS.
 
-The only file that touches the OS. Requires the Accessibility
-permission: System Settings -> Privacy & Security -> Accessibility ->
-enable your terminal app.
+The only file that touches the OS. Mouse actions go through pynput;
+system shortcuts go through AppleScript, because macOS ignores
+synthetic key events for those (see post_system_hotkey).
+
+Needs the Accessibility permission (System Settings -> Privacy &
+Security -> Accessibility -> enable your terminal app), and macOS will
+also ask to allow controlling System Events the first time a swipe
+fires.
 """
 
-import time
+import subprocess
+import threading
 
 from pynput.mouse import Button, Controller as MouseController
 
@@ -16,41 +22,37 @@ SWIPE_KEYCODES = {
     'swipe_up': 126,     # Ctrl+Up    -> Mission Control
     'swipe_down': 125,   # Ctrl+Down  -> App Expose
 }
-KEY_CONTROL = 59
-# The system tap that owns Mission Control shortcuts can miss a modifier
-# pressed in the same instant as the key, so hold it briefly.
-HOTKEY_HOLD_SEC = 0.02
-# A physically pressed Control key carries this device-dependent bit
-# alongside the generic Control mask. macOS hotkey matching looks for it,
-# so an event without it is delivered to apps as a plain Ctrl+key but is
-# never claimed as a system shortcut.
-NX_DEVICELCTLKEYMASK = 0x00000001
+def hotkey_script(keycode):
+    """AppleScript that presses Ctrl+<keycode>."""
+    return ('tell application "System Events" to '
+            f'key code {keycode} using control down')
 
 
-def post_system_hotkey(keycode, hold=HOTKEY_HOLD_SEC):
-    """Send Ctrl+<keycode> as real key events.
+def post_system_hotkey(keycode, background=True):
+    """Fire Ctrl+<keycode> as a genuine system shortcut.
 
-    Mission Control and Spaces shortcuts are claimed by an event tap that
-    reads the modifier flags carried on the key event itself, not just
-    the fact that a modifier key is down. Posting the modifier key AND
-    stamping the flag on the arrow event is what makes them respond;
-    pressing the modifier alone is silently ignored.
+    Spawning osascript is a strange-looking way to press a key, and
+    posting the event with Quartz is far cheaper — but macOS hands those
+    events to the focused application as a plain Ctrl+key without ever
+    matching them against Mission Control and Spaces shortcuts, so they
+    silently do nothing. System Events is what actually triggers the
+    shortcut. diagnose_hotkey.py compares all the alternatives if this
+    ever needs revisiting.
+
+    osascript costs ~100 ms, so it runs on a throwaway thread instead of
+    stalling the camera loop; the swipe cooldown stops these overlapping.
     """
-    import Quartz
+    script = hotkey_script(keycode)
+    if not background:
+        return _run_script(script)
+    threading.Thread(target=_run_script, args=(script,), daemon=True).start()
+    return None
 
-    flags = Quartz.kCGEventFlagMaskControl | NX_DEVICELCTLKEYMASK
 
-    def post(code, down, event_flags):
-        event = Quartz.CGEventCreateKeyboardEvent(None, code, down)
-        Quartz.CGEventSetFlags(event, event_flags)
-        Quartz.CGEventPost(Quartz.kCGHIDEventTap, event)
-
-    post(KEY_CONTROL, True, flags)
-    time.sleep(hold)
-    post(keycode, True, flags)
-    time.sleep(hold)
-    post(keycode, False, flags)
-    post(KEY_CONTROL, False, 0)
+def _run_script(script):
+    # capture_output keeps AppleScript errors off the app's own output,
+    # and run() reaps the child so a long session can't leak zombies
+    return subprocess.run(['osascript', '-e', script], capture_output=True)
 
 
 def screen_size():

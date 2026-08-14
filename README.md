@@ -39,6 +39,8 @@ Tuning knobs in `control.py`:
 | `CURSOR_SPEED_REF` | Hand speed (fraction of screen per frame) at which damping fully releases. Lower = snappier overall. |
 | `CURSOR_MARGIN` | Camera edge dead zone; the inner region maps to the whole screen. |
 
+Swipe shortcuts go through AppleScript (System Events) rather than synthetic key events: macOS delivers Quartz-posted key events to the focused app as a plain Ctrl+key but never matches them against Mission Control or Spaces shortcuts, so they silently do nothing. Run `diagnose_hotkey.py` to see that comparison for yourself. Left/right also need **more than one desktop Space** to have any visible effect.
+
 First use: grant the **Accessibility** permission — System Settings → Privacy & Security → Accessibility → enable your terminal app (the app checks and prompts when you first press `c`; without the permission macOS silently discards synthetic input). The Esc kill switch additionally uses **Input Monitoring** — macOS will prompt for it on first run.
 
 Safety:

@@ -1,5 +1,11 @@
 """Find out which key-posting method macOS accepts as a system shortcut.
 
+Kept around because this is genuinely surprising: every Quartz method
+below delivers a valid Ctrl+key to the focused app, yet macOS never
+matches it against a Mission Control or Spaces shortcut. Only method 4
+(AppleScript System Events) triggers them, which is why mac_actions
+spawns osascript instead of posting events directly.
+
     .venv/bin/python diagnose_hotkey.py
 
 BEFORE RUNNING: press Ctrl+Up physically. If Mission Control does not
