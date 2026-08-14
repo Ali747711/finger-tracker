@@ -33,7 +33,7 @@ Both hands are tracked at once, each with completely independent gesture state �
 - **Brief dropouts**: a hand missing for 1–2 frames is still considered present, so a flicker can't reset gesture state mid-gesture or hand control to the other hand.
 - **Duplicate labels**: MediaPipe sometimes classifies both hands the same way. The more confident hand keeps the contested label and the other takes the free one, so two physical hands never share state.
 
-**The right hand drives macOS control** when both are visible (`PRIMARY_HAND` in `hands.py`); with one hand up, that hand drives regardless of which it is. If control changes hands, any held drag is released first. The overlay shows a line per hand plus which one is `driving`.
+**Control is sticky to one hand.** Whichever hand starts driving keeps driving while it stays visible, so raising a second hand can't yank the cursor away mid-movement — and it stays correct even if MediaPipe has the handedness labels backwards. With no hand yet driving, the right hand is preferred (`PRIMARY_HAND` in `hands.py`). If control does change hands, any held drag is released first. The overlay shows a line per hand plus which one is `driving`.
 
 The off hand is fully tracked — its fingers, pinch, scroll and swipe events are all detected and logged — but only drives macOS through two-hand gestures (see v0.6), never on its own.
 
@@ -51,6 +51,10 @@ Press `c` in the video window to toggle macOS control (starts **OFF**):
 | Open-palm flick down | App Exposé (Ctrl+↓) |
 
 Poses are debounced: scroll and swipe both need their pose held ~3 frames before firing, so a hand passing through a pose in transit doesn't trigger them. A held scroll survives a 1-2 frame finger misread without handing the cursor back.
+
+**Pose detection is rotation-invariant.** Whether a finger is extended is judged by how far its tip sits from the wrist compared with its own middle joint — a ratio that holds however you tilt your hand. Comparing tip and joint *heights* instead (the obvious approach) only works while the hand points upward: measured against a synthetic hand, it starts misreading at 45° of tilt and inverts completely past 90°. Since every pose — cursor, scroll, swipe arming, OK sign — is built on that primitive, this was the single biggest source of gestures feeling unreliable.
+
+It also means handedness no longer affects pose reading at all, so a hand MediaPipe labels backwards still reads correctly.
 
 Tuning knobs in `control.py`:
 

@@ -124,14 +124,19 @@ def fingers_clearly_extended(landmarks, tips=OK_FINGER_TIPS,
 
     Deliberately stricter than `fingers_up`: this has to tell a hand
     holding an OK sign apart from a hand pinching to click with its other
-    fingers merely relaxed, and those look identical to a bare
-    tip-above-joint test.
+    fingers merely relaxed, and those look nearly identical unless the
+    margin is explicit.
+
+    Measured from the wrist, like fingers_up, so it holds however the hand
+    is rotated.
     """
     scale = hand_scale(landmarks)
     if scale < 1e-6:
         return False
+    wrist = landmarks[0]
     margin = margin_ratio * scale
-    return all(landmarks[tip][1] < landmarks[tip - 2][1] - margin
+    return all(distance(wrist, landmarks[tip])
+               > distance(wrist, landmarks[tip - 2]) + margin
                for tip in tips)
 
 

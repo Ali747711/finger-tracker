@@ -73,42 +73,52 @@ class TestPrimarySelection:
     def test_unavailable_preference_falls_back(self):
         assert pick_primary(['Left'], preferred='Right') == 'Left'
 
+    def test_the_hand_already_driving_keeps_driving(self):
+        # raising a second hand must not yank the cursor across to it
+        assert pick_primary(['Left', 'Right'], current='Left') == 'Left'
+
+    def test_control_moves_on_when_that_hand_leaves(self):
+        assert pick_primary(['Right'], current='Left') == 'Right'
+
+    def test_no_hands_drops_control_regardless(self):
+        assert pick_primary([], current='Left') is None
+
 
 class TestHandTracker:
     def test_reports_fingers_and_pinch(self):
         t = HandTracker()
-        events = t.update(hand_landmarks(pinch_ratio=0.2), 'Right', 0.0)
+        events = t.update(hand_landmarks(pinch_ratio=0.2), 0.0)
         assert 'pinch_start' in events
         assert t.is_pinching is True
         assert t.fingers['index'] is True
 
     def test_open_hand_no_events(self):
         t = HandTracker()
-        assert t.update(hand_landmarks(), 'Right', 0.0) == []
+        assert t.update(hand_landmarks(), 0.0) == []
 
     def test_lost_closes_a_held_pinch(self):
         t = HandTracker()
-        t.update(hand_landmarks(pinch_ratio=0.2), 'Right', 0.0)
+        t.update(hand_landmarks(pinch_ratio=0.2), 0.0)
         assert t.lost() == ['pinch_end']
         assert t.is_pinching is False
 
     def test_lost_without_pinch_owes_nothing(self):
         t = HandTracker()
-        t.update(hand_landmarks(), 'Right', 0.0)
+        t.update(hand_landmarks(), 0.0)
         assert t.lost() == []
 
     def test_lost_requires_open_hand_before_new_pinch(self):
         # the reacquire guard must survive going through the tracker
         t = HandTracker()
-        t.update(hand_landmarks(pinch_ratio=0.2), 'Right', 0.0)
+        t.update(hand_landmarks(pinch_ratio=0.2), 0.0)
         t.lost()
-        assert t.update(hand_landmarks(pinch_ratio=0.2), 'Right', 0.1) == []
+        assert t.update(hand_landmarks(pinch_ratio=0.2), 0.1) == []
 
     def test_lost_resets_the_palm_gate(self):
         t = HandTracker()
         open_hand = hand_landmarks()
         for _ in range(3):
-            t.update(open_hand, 'Right', 0.0)
+            t.update(open_hand, 0.0)
         armed = dict(t.fingers)
         assert t.palm.update(armed) is True   # palm held long enough
         t.lost()
@@ -131,23 +141,23 @@ class TestHandTracker:
 
     def test_ok_sign_fires(self):
         t = HandTracker()
-        assert 'ok_sign' in t.update(self.ok_sign_landmarks(), 'Right', 0.0)
+        assert 'ok_sign' in t.update(self.ok_sign_landmarks(), 0.0)
 
     def test_hand_lost_mid_sign_does_not_relaunch(self):
         # dropping out and returning still holding the sign must not open
         # the app a second time
         t = HandTracker()
         sign = self.ok_sign_landmarks()
-        assert 'ok_sign' in t.update(sign, 'Right', 0.0)
+        assert 'ok_sign' in t.update(sign, 0.0)
         t.lost()
-        assert 'ok_sign' not in t.update(sign, 'Right', 5.0)
+        assert 'ok_sign' not in t.update(sign, 5.0)
 
     def test_hands_do_not_share_state(self):
         left, right = HandTracker(), HandTracker()
-        right.update(hand_landmarks(pinch_ratio=0.2), 'Right', 0.0)
+        right.update(hand_landmarks(pinch_ratio=0.2), 0.0)
         assert right.is_pinching is True
         assert left.is_pinching is False
-        assert left.update(hand_landmarks(), 'Left', 0.0) == []
+        assert left.update(hand_landmarks(), 0.0) == []
 
 
 def flick_landmarks(x, y, palm=True):
@@ -173,13 +183,12 @@ class TestSwipeDetection:
         t = HandTracker()
         now, x, y = 0.0, 0.30, -0.30
         for _ in range(4):                    # hold the palm to arm
-            t.update(flick_landmarks(x, y), 'Right', now)
+            t.update(flick_landmarks(x, y), now)
             now += 1 / 25
         events = []
         for i in range(frames):
             x, y = x + dx, y + dy
-            events += t.update(
-                flick_landmarks(x, y, i not in blur), 'Right', now)
+            events += t.update(flick_landmarks(x, y, i not in blur), now)
             now += 1 / 25
         return events
 

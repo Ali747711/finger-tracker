@@ -1,3 +1,5 @@
+import math
+
 import pytest
 
 from gestures import (OkSignDetector, PinchDetector, SwipeDetector,
@@ -213,9 +215,30 @@ class TestOkSignDetector:
         assert d.is_showing is False
 
 
+def rotate(landmarks, degrees):
+    """Rotate a hand about its wrist — what tilting your hand looks like."""
+    angle = math.radians(degrees)
+    cos_a, sin_a = math.cos(angle), math.sin(angle)
+    ox, oy = landmarks[0]
+    return [(ox + (x - ox) * cos_a - (y - oy) * sin_a,
+             oy + (x - ox) * sin_a + (y - oy) * cos_a) for x, y in landmarks]
+
+
 class TestFingersClearlyExtended:
     def test_extended_passes(self):
         assert fingers_clearly_extended(ok_landmarks(1.0)) is True
+
+    def test_extension_survives_hand_rotation(self):
+        # measured from the wrist, so tilting the hand can't turn an OK
+        # sign into an unrecognised pose
+        lm = ok_landmarks(1.0)
+        for degrees in (0, 45, 90, 135, 180, 270):
+            assert fingers_clearly_extended(rotate(lm, degrees)) is True, degrees
+
+    def test_relaxed_stays_relaxed_when_rotated(self):
+        lm = ok_landmarks(1.0, 'relaxed')
+        for degrees in (0, 45, 90, 180):
+            assert fingers_clearly_extended(rotate(lm, degrees)) is False, degrees
 
     def test_relaxed_fails(self):
         # only just above the joint — not a deliberate extension

@@ -98,7 +98,7 @@ def process_hand(frame, hand, label, tracker, now, drawer):
     aspect = w / h
     points = [(lm.x * aspect, lm.y) for lm in hand.landmark]
 
-    events = tracker.update(points, label, now)
+    events = tracker.update(points, now)
     draw_pinch_line(frame, hand, tracker.is_pinching)
 
     up_names = [name for name, is_up in tracker.fingers.items() if is_up]
@@ -190,7 +190,7 @@ def main():
                 # held by whichever hand was driving
                 controller.execute(session.hand_lost())
 
-            primary = pick_primary(active)
+            primary = pick_primary(active, controlling)
             if primary != controlling:
                 # control changed hands (or ran out of hands): never leave
                 # a drag held by the hand that just left

@@ -62,11 +62,19 @@ def other_hand(label):
     return 'Left' if label == 'Right' else 'Right'
 
 
-def pick_primary(labels, preferred=PRIMARY_HAND):
-    """Which hand drives the cursor: the preferred one when it is there,
-    otherwise whichever single hand is. None when no hand is active."""
+def pick_primary(labels, current=None, preferred=PRIMARY_HAND):
+    """Which hand drives the cursor. None when no hand is active.
+
+    A hand already driving keeps driving for as long as it stays visible.
+    That makes the choice sticky rather than label-dependent: the hand you
+    raise first keeps control when the other one joins, so raising a second
+    hand can't yank the cursor away mid-movement — and it stays right even
+    if MediaPipe has the handedness labels backwards.
+    """
     if not labels:
         return None
+    if current in labels:
+        return current
     if preferred in labels:
         return preferred
     return sorted(labels)[0]
@@ -90,11 +98,11 @@ class HandTracker:
     def is_pinching(self):
         return self.pinch.is_pinching
 
-    def update(self, points, label, now):
+    def update(self, points, now):
         """points: 21 aspect-corrected (x, y) landmarks for this hand.
         Returns the gesture events it produced this frame."""
         self.points = points
-        self.fingers = fingers_up(points, label)
+        self.fingers = fingers_up(points)
         self.direction = self.movement.update(*points[INDEX_TIP])
 
         events = []
