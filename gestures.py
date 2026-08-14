@@ -13,6 +13,9 @@ from collections import deque
 # when the distance hovers around a single cutoff.
 PINCH_ON_RATIO = 0.35
 PINCH_OFF_RATIO = 0.55
+# Consecutive open frames needed to end a pinch. Landmarks get noisy
+# while the hand moves, so a drag must survive a single bad frame.
+PINCH_RELEASE_FRAMES = 3
 
 SWIPE_WINDOW_SEC = 0.30     # look-back window for displacement
 SWIPE_MIN_DISTANCE = 0.18   # normalized-screen units the point must travel
@@ -40,11 +43,16 @@ def hand_scale(landmarks):
 class PinchDetector:
     """Thumb-tip (4) to index-tip (8) pinch with hysteresis."""
 
-    def __init__(self, on_ratio=PINCH_ON_RATIO, off_ratio=PINCH_OFF_RATIO):
+    def __init__(self, on_ratio=PINCH_ON_RATIO, off_ratio=PINCH_OFF_RATIO,
+                 release_frames=PINCH_RELEASE_FRAMES):
         if on_ratio >= off_ratio:
             raise ValueError('on_ratio must be smaller than off_ratio')
+        if release_frames < 1:
+            raise ValueError('release_frames must be at least 1')
         self._on = on_ratio
         self._off = off_ratio
+        self._release_frames = release_frames
+        self._open_frames = 0
         self._need_open = False
         self.is_pinching = False
 
@@ -70,17 +78,30 @@ class PinchDetector:
                 self._need_open = False
             return None
 
-        if not self.is_pinching and ratio < self._on:
-            self.is_pinching = True
-            return 'pinch_start'
-        if self.is_pinching and ratio > self._off:
-            self.is_pinching = False
-            return 'pinch_end'
+        if not self.is_pinching:
+            if ratio < self._on:
+                self.is_pinching = True
+                self._open_frames = 0
+                return 'pinch_start'
+            return None
+
+        # Releasing takes consecutive open frames. Landmarks get noisy
+        # while the hand moves, and a single bad frame dropping the pinch
+        # is what makes a drag let go halfway.
+        if ratio > self._off:
+            self._open_frames += 1
+            if self._open_frames >= self._release_frames:
+                self.is_pinching = False
+                self._open_frames = 0
+                return 'pinch_end'
+        else:
+            self._open_frames = 0
         return None
 
     def reset(self):
         """Call when the hand is lost."""
         self.is_pinching = False
+        self._open_frames = 0
         self._need_open = True
 
 

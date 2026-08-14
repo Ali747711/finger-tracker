@@ -41,8 +41,29 @@ class TestPinchDetector:
     def test_opening_fires_pinch_end(self):
         p = PinchDetector()
         p.update(pinch_landmarks(0.2))
+        # the release needs consecutive open frames
+        assert p.update(pinch_landmarks(0.8)) is None
+        assert p.update(pinch_landmarks(0.8)) is None
         assert p.update(pinch_landmarks(0.8)) == 'pinch_end'
         assert p.is_pinching is False
+
+    def test_drag_survives_one_noisy_frame(self):
+        # landmarks get noisy while the hand moves; a single bad frame
+        # dropping the pinch is what makes a drag let go halfway
+        p = PinchDetector()
+        p.update(pinch_landmarks(0.2))
+        assert p.update(pinch_landmarks(0.8)) is None   # noise
+        assert p.update(pinch_landmarks(0.2)) is None   # still pinching
+        assert p.is_pinching is True
+        # and the open-frame count restarted, so a real release still
+        # takes the full run of open frames
+        assert p.update(pinch_landmarks(0.8)) is None
+        assert p.update(pinch_landmarks(0.8)) is None
+        assert p.update(pinch_landmarks(0.8)) == 'pinch_end'
+
+    def test_rejects_bad_release_frames(self):
+        with pytest.raises(ValueError):
+            PinchDetector(release_frames=0)
 
     def test_degenerate_scale_ignored(self):
         lm = [(0.5, 0.5)] * 21  # wrist == middle MCP -> scale 0

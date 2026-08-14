@@ -27,12 +27,15 @@ CURSOR_SPEED_REF = 0.05
 OPEN_PALM_FINGERS = 4
 # Frames the open palm must be held before swipe detection is armed.
 OPEN_PALM_HOLD_FRAMES = 3
+# Frames of misread the armed palm tolerates. A flick blurs the fingers,
+# so disarming instantly would clear the swipe history mid-swipe.
+OPEN_PALM_GAP_FRAMES = 4
 # Frames the pointer pose may drop out (e.g. while the index curls into a
 # pinch) before cursor smoothing state is discarded.
 POSE_GAP_FRAMES = 3
 # Scroll steps per full frame-height of hand travel. pynput posts each
 # step as a 10-pixel scroll event on macOS, so 150 ~= 1500 px per sweep.
-SCROLL_SENSITIVITY = 150.0
+SCROLL_SENSITIVITY = 300.0
 # Frames the scroll pose must be held before it emits, so poses passed
 # through in transit (e.g. opening the hand for a swipe) don't scroll.
 SCROLL_ENGAGE_FRAMES = 3
@@ -119,23 +122,40 @@ class PalmGate:
     """Reports whether the open palm has been held long enough to arm
     swipe detection.
 
-    A vigorous scroll stroke is one flickered finger away from reading as
-    an open palm, and a 1-2 frame misread would fire a desktop switch, so
-    the pose has to persist before swipes are fed.
+    Arming takes a few frames so a hand passing through the pose cannot
+    fire a desktop switch. Disarming takes a few frames too, which
+    matters more: a swipe is a fast flick, and motion blur makes finger
+    detection misread mid-flick. Disarming on the first misread would
+    clear the swipe history exactly when the swipe is happening.
     """
 
-    def __init__(self, frames=OPEN_PALM_HOLD_FRAMES):
+    def __init__(self, frames=OPEN_PALM_HOLD_FRAMES,
+                 gap=OPEN_PALM_GAP_FRAMES):
         self._frames = frames
+        self._gap_limit = gap
         self._held = 0
+        self._gap = 0
 
     def update(self, up):
-        self._held = self._held + 1 if is_open_palm(up) else 0
+        if is_open_palm(up):
+            self._gap = 0
+            self._held += 1
+        elif self._held >= self._frames:
+            # Armed: ride out the blur of an actual flick.
+            self._gap += 1
+            if self._gap >= self._gap_limit:
+                self.reset()
+        else:
+            # Still arming: any miss restarts, so a pose merely passed
+            # through on the way somewhere else never arms swipes.
+            self.reset()
         return self._held >= self._frames
 
     def reset(self):
         """Call when the hand is lost, so a returning hand has to hold
         the pose again rather than arming instantly."""
         self._held = 0
+        self._gap = 0
 
 
 class ScrollTracker:

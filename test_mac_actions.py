@@ -77,10 +77,13 @@ class TestDispatch:
         ]
 
     def test_scroll_axis_order(self):
-        # pynput's scroll(dx, dy) takes horizontal first, vertical second
+        # ('scroll', dx, dy) must reach pynput's scroll(dx, dy) in the
+        # same order: horizontal first, vertical second. Swapping these
+        # sends vertical hand motion to the horizontal axis, which most
+        # apps ignore — so scrolling looks like it barely works.
         controller, mouse, _ = make_controller()
         controller.execute([('scroll', 2, -3)])
-        assert mouse.calls == [('scroll', -3, 2)]
+        assert mouse.calls == [('scroll', 2, -3)]
 
     def test_hotkey_is_ctrl_plus_arrow(self):
         controller, _, keyboard = make_controller()

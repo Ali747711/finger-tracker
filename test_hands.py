@@ -123,6 +123,58 @@ class TestHandTracker:
         assert left.update(hand_landmarks(), 'Left', 0.0) == []
 
 
+def flick_landmarks(x, y, palm=True):
+    """An open hand at (x, y). palm=False is the blurred frame where
+    the fingers misread as curled, which happens mid-flick."""
+    lm = list([(x, 0.9 + y)] * 21)
+    lm[0] = (x, 0.9 + y)
+    lm[9] = lm[5] = lm[17] = (x, 0.7 + y)
+    lm[3] = (x - 0.10, 0.75 + y)
+    lm[4] = (x - 0.20, 0.35 + y)
+    for tip in (8, 12, 16, 20):
+        lm[tip - 2] = (x, 0.55 + y)
+        lm[tip] = (x, (0.35 if palm else 0.65) + y)
+    return lm
+
+
+class TestSwipeDetection:
+    """A swipe is a fast flick, and motion blur makes MediaPipe misread
+    the fingers exactly while it happens. These pin that a real flick
+    still fires, in the right direction."""
+
+    def flick(self, blur=(), dx=0.06, dy=0.0, frames=6):
+        t = HandTracker()
+        now, x, y = 0.0, 0.30, -0.30
+        for _ in range(4):                    # hold the palm to arm
+            t.update(flick_landmarks(x, y), 'Right', now)
+            now += 1 / 25
+        events = []
+        for i in range(frames):
+            x, y = x + dx, y + dy
+            events += t.update(
+                flick_landmarks(x, y, i not in blur), 'Right', now)
+            now += 1 / 25
+        return events
+
+    def test_clean_flick_fires(self):
+        assert self.flick() == ['swipe_right']
+
+    def test_flick_survives_blurred_frames(self):
+        # the palm gate must not disarm and wipe the swipe history here
+        assert self.flick(blur=(1, 2)) == ['swipe_right']
+
+    def test_blur_does_not_bend_the_direction(self):
+        # tracking a fingertip would read the finger curl as a big
+        # vertical move and report swipe_down for a sideways flick
+        assert self.flick(blur=(1, 2, 3)) == ['swipe_right']
+
+    def test_vertical_flick(self):
+        assert self.flick(dx=0.0, dy=0.06) == ['swipe_down']
+
+    def test_slow_drift_does_not_fire(self):
+        assert self.flick(dx=0.008) == []
+
+
 class TestHandRegistry:
     def test_creates_one_tracker_per_hand(self):
         r = HandRegistry()

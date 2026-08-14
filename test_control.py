@@ -158,7 +158,7 @@ class TestScrollTracker:
         # so a quarter-frame sweep here is ~370 px of scrolling.
         t = ScrollTracker()
         t.update(0.5, 0.5)
-        assert t.update(0.5, 0.75) == (0, 37)  # 0.25 * 150 = 37.5 steps
+        assert t.update(0.5, 0.75) == (0, 75)  # 0.25 * 300 = 75 steps
 
 
 class TestPalmGate:
@@ -175,6 +175,23 @@ class TestPalmGate:
         g.update(OPEN_PALM)
         assert g.update(SCROLL) is False
         assert g.update(OPEN_PALM) is False  # counter restarted
+
+    def test_armed_palm_rides_out_flick_blur(self):
+        # a real swipe blurs the fingers mid-flick; disarming there would
+        # clear the swipe history exactly when the swipe is happening
+        g = PalmGate(frames=3, gap=4)
+        for _ in range(3):
+            g.update(OPEN_PALM)
+        assert g.update(POINTER) is True   # misread during the flick
+        assert g.update(FIST) is True
+        assert g.update(OPEN_PALM) is True  # recovered, still armed
+
+    def test_sustained_non_palm_disarms(self):
+        g = PalmGate(frames=3, gap=4)
+        for _ in range(3):
+            g.update(OPEN_PALM)
+        results = [g.update(FIST) for _ in range(4)]
+        assert results == [True, True, True, False]
 
     def test_production_default_needs_more_than_one_frame(self):
         # main.py builds PalmGate() with the module default; a 1-frame

@@ -15,6 +15,10 @@ from gestures import PinchDetector, SwipeDetector
 from hand_logic import MovementTracker, fingers_up
 
 INDEX_TIP = 8
+# Middle-finger MCP — the centre of the palm. A swipe is a whole-hand
+# flick, and this point barely moves when the fingers curl or blur,
+# unlike a fingertip, so it gives the swipe a stable direction.
+PALM_CENTER = 9
 # A hand missing for fewer than this many consecutive frames is treated as
 # still present: MediaPipe drops a hand routinely, and reacting instantly
 # would reset gesture state mid-gesture.
@@ -78,6 +82,7 @@ class HandTracker:
         self.palm = PalmGate()
         self.fingers = {}
         self.direction = 'still'
+        self.palm_armed = False
 
     @property
     def is_pinching(self):
@@ -97,8 +102,9 @@ class HandTracker:
         # Swipes are an open-palm gesture, and the palm must be held: a
         # fast pointer or scroll move with a flickered finger would
         # otherwise fire a desktop switch.
-        if self.palm.update(self.fingers):
-            swipe_event = self.swipe.update(*points[INDEX_TIP], now)
+        self.palm_armed = self.palm.update(self.fingers)
+        if self.palm_armed:
+            swipe_event = self.swipe.update(*points[PALM_CENTER], now)
             if swipe_event:
                 events.append(swipe_event)
         else:
@@ -116,6 +122,7 @@ class HandTracker:
         self.palm.reset()
         self.fingers = {}
         self.direction = 'still'
+        self.palm_armed = False
         return events
 
     def open_palm(self):

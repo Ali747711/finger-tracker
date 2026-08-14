@@ -102,7 +102,8 @@ def process_hand(frame, hand, label, tracker, now, drawer):
     up_names = [name for name, is_up in tracker.fingers.items() if is_up]
     status = (f'{label}: {", ".join(up_names) or "fist"}'
               f' | {tracker.direction}'
-              f'{" | PINCH" if tracker.is_pinching else ""}')
+              f'{" | PINCH" if tracker.is_pinching else ""}'
+              f'{" | PALM(swipe armed)" if tracker.palm_armed else ""}')
     raw_index = (hand.landmark[INDEX_TIP].x, hand.landmark[INDEX_TIP].y)
     return status, events, raw_index
 

@@ -73,7 +73,8 @@ class MacController:
             elif kind == 'release':
                 self._mouse.release(Button.left)
             elif kind == 'scroll':
-                self._mouse.scroll(action[2], action[1])
+                # ('scroll', dx, dy) -> scroll(dx, dy): horizontal first
+                self._mouse.scroll(action[1], action[2])
             elif kind == 'hotkey':
                 key = SWIPE_KEYS.get(action[1])
                 if key is not None:
