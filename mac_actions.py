@@ -5,16 +5,47 @@ permission: System Settings -> Privacy & Security -> Accessibility ->
 enable your terminal app.
 """
 
-from pynput.keyboard import Controller as KeyboardController, Key
+import time
+
 from pynput.mouse import Button, Controller as MouseController
 
-# macOS default Mission Control shortcuts (Ctrl+Arrow).
-SWIPE_KEYS = {
-    'swipe_left': Key.left,    # previous desktop space
-    'swipe_right': Key.right,  # next desktop space
-    'swipe_up': Key.up,        # Mission Control
-    'swipe_down': Key.down,    # App Expose
+# macOS virtual key codes for the default Mission Control shortcuts.
+SWIPE_KEYCODES = {
+    'swipe_left': 123,   # Ctrl+Left  -> previous desktop space
+    'swipe_right': 124,  # Ctrl+Right -> next desktop space
+    'swipe_up': 126,     # Ctrl+Up    -> Mission Control
+    'swipe_down': 125,   # Ctrl+Down  -> App Expose
 }
+KEY_CONTROL = 59
+# The system tap that owns Mission Control shortcuts can miss a modifier
+# pressed in the same instant as the key, so hold it briefly.
+HOTKEY_HOLD_SEC = 0.02
+
+
+def post_system_hotkey(keycode, hold=HOTKEY_HOLD_SEC):
+    """Send Ctrl+<keycode> as real key events.
+
+    Mission Control and Spaces shortcuts are claimed by an event tap that
+    reads the modifier flags carried on the key event itself, not just
+    the fact that a modifier key is down. Posting the modifier key AND
+    stamping the flag on the arrow event is what makes them respond;
+    pressing the modifier alone is silently ignored.
+    """
+    import Quartz
+
+    flags = Quartz.kCGEventFlagMaskControl
+
+    def post(code, down, event_flags):
+        event = Quartz.CGEventCreateKeyboardEvent(None, code, down)
+        Quartz.CGEventSetFlags(event, event_flags)
+        Quartz.CGEventPost(Quartz.kCGHIDEventTap, event)
+
+    post(KEY_CONTROL, True, flags)
+    time.sleep(hold)
+    post(keycode, True, flags)
+    time.sleep(hold)
+    post(keycode, False, flags)
+    post(KEY_CONTROL, False, 0)
 
 
 def screen_size():
@@ -61,7 +92,7 @@ def start_kill_listener(callback):
 class MacController:
     def __init__(self):
         self._mouse = MouseController()
-        self._keyboard = KeyboardController()
+        self._hotkey = post_system_hotkey
 
     def execute(self, actions):
         for action in actions:
@@ -76,8 +107,6 @@ class MacController:
                 # ('scroll', dx, dy) -> scroll(dx, dy): horizontal first
                 self._mouse.scroll(action[1], action[2])
             elif kind == 'hotkey':
-                key = SWIPE_KEYS.get(action[1])
-                if key is not None:
-                    with self._keyboard.pressed(Key.ctrl):
-                        self._keyboard.press(key)
-                        self._keyboard.release(key)
+                keycode = SWIPE_KEYCODES.get(action[1])
+                if keycode is not None:
+                    self._hotkey(keycode)

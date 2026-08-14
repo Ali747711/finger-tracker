@@ -4,10 +4,9 @@ Real pynput controllers are never constructed — the fakes below record
 calls instead, so nothing is posted to the OS.
 """
 
-from pynput.keyboard import Key
 from pynput.mouse import Button
 
-from mac_actions import MacController
+from mac_actions import SWIPE_KEYCODES, MacController
 
 
 class FakeMouse:
@@ -32,38 +31,24 @@ class FakeMouse:
         self.calls.append(('scroll', dx, dy))
 
 
-class FakeKeyboard:
+class FakeHotkey:
+    """Stands in for post_system_hotkey — records key codes instead of
+    posting real events to the OS."""
+
     def __init__(self):
         self.calls = []
 
-    def pressed(self, key):
-        calls = self.calls
-
-        class Ctx:
-            def __enter__(self):
-                calls.append(('hold', key))
-                return self
-
-            def __exit__(self, *exc):
-                calls.append(('unhold', key))
-                return False
-
-        return Ctx()
-
-    def press(self, key):
-        self.calls.append(('press', key))
-
-    def release(self, key):
-        self.calls.append(('release', key))
+    def __call__(self, keycode):
+        self.calls.append(keycode)
 
 
 def make_controller():
-    # __new__ skips __init__, so no real pynput controllers are created
+    # __new__ skips __init__, so no real OS controllers are created
     controller = MacController.__new__(MacController)
-    mouse, keyboard = FakeMouse(), FakeKeyboard()
+    mouse, hotkey = FakeMouse(), FakeHotkey()
     controller._mouse = mouse
-    controller._keyboard = keyboard
-    return controller, mouse, keyboard
+    controller._hotkey = hotkey
+    return controller, mouse, hotkey
 
 
 class TestDispatch:
@@ -85,22 +70,24 @@ class TestDispatch:
         controller.execute([('scroll', 2, -3)])
         assert mouse.calls == [('scroll', 2, -3)]
 
-    def test_hotkey_is_ctrl_plus_arrow(self):
-        controller, _, keyboard = make_controller()
-        controller.execute([('hotkey', 'swipe_right')])
-        assert keyboard.calls == [
-            ('hold', Key.ctrl),
-            ('press', Key.right),
-            ('release', Key.right),
-            ('unhold', Key.ctrl),
-        ]
+    def test_each_swipe_maps_to_its_arrow_key(self):
+        for name, keycode in SWIPE_KEYCODES.items():
+            controller, _, hotkey = make_controller()
+            controller.execute([('hotkey', name)])
+            assert hotkey.calls == [keycode], name
+
+    def test_arrow_key_codes_are_the_macos_ones(self):
+        # left/right/down/up virtual key codes; a wrong code here would
+        # silently fire some other shortcut
+        assert SWIPE_KEYCODES == {'swipe_left': 123, 'swipe_right': 124,
+                                  'swipe_down': 125, 'swipe_up': 126}
 
     def test_unknown_hotkey_is_ignored(self):
-        controller, _, keyboard = make_controller()
+        controller, _, hotkey = make_controller()
         controller.execute([('hotkey', 'swipe_diagonal')])
-        assert keyboard.calls == []
+        assert hotkey.calls == []
 
     def test_empty_action_list_is_noop(self):
-        controller, mouse, keyboard = make_controller()
+        controller, mouse, hotkey = make_controller()
         controller.execute([])
-        assert mouse.calls == [] and keyboard.calls == []
+        assert mouse.calls == [] and hotkey.calls == []
