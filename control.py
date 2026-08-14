@@ -112,6 +112,15 @@ def is_pointer_pose(up):
     return up['index'] and not up['middle'] and not up['ring'] and not up['pinky']
 
 
+def is_ok_pose(up):
+    """Middle, ring and pinky extended — the hand shape of an OK sign.
+
+    A click-pinch curls these three, so this is what separates a pinch
+    meant as a click from one meant as an OK sign.
+    """
+    return bool(up) and up['middle'] and up['ring'] and up['pinky']
+
+
 def is_scroll_pose(up):
     """Index + middle extended (a V), ring/pinky curled. Thumb ignored."""
     return (up['index'] and up['middle']
@@ -193,7 +202,10 @@ class ScrollTracker:
 
 
 def is_open_palm(up):
-    return sum(up.values()) >= OPEN_PALM_FINGERS
+    """An open hand held up. The index must be extended, which also keeps
+    an OK sign — index curled into a ring, three fingers up — from
+    arming swipes."""
+    return up.get('index', False) and sum(up.values()) >= OPEN_PALM_FINGERS
 
 
 class ActionRouter:
@@ -216,7 +228,12 @@ class ActionRouter:
         raw_index: (x, y) index tip in normalized camera coords."""
         actions = []
         pinch_started = 'pinch_start' in events
-        pinch_active = is_pinching or self.is_dragging or pinch_started
+        # A closed thumb-index ring only counts as pointing when the other
+        # fingers are curled; the same ring with them extended is an OK
+        # sign, which should neither click nor drag the cursor around. A
+        # drag already in progress still keeps the cursor.
+        pinch_pointing = (is_pinching or pinch_started) and not is_ok_pose(up)
+        pinch_active = pinch_pointing or self.is_dragging
         scroll_pose = is_scroll_pose(up)
 
         steps = self._track_scroll(scroll_pose, pinch_active, raw_index)
@@ -247,6 +264,8 @@ class ActionRouter:
 
         for event in events:
             if event == 'pinch_start' and not self.is_dragging:
+                if is_ok_pose(up):
+                    continue  # an OK sign closes the same ring; not a click
                 self.is_dragging = True
                 actions.append(('press',))
             elif event == 'pinch_end' and self.is_dragging:

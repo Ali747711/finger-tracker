@@ -22,6 +22,32 @@ SWIPE_KEYCODES = {
     'swipe_up': 126,     # Ctrl+Up    -> Mission Control
     'swipe_down': 125,   # Ctrl+Down  -> App Expose
 }
+# Everything MacController.execute knows how to run. Bindings are checked
+# against this at startup, so a typo says so instead of silently doing
+# nothing when the gesture fires.
+ACTION_KINDS = frozenset({'move', 'press', 'release', 'scroll',
+                          'hotkey', 'launch', 'shell'})
+
+
+def binding_problems(bindings):
+    """Human-readable complaints about a gesture -> action map."""
+    problems = []
+    for gesture, action in bindings.items():
+        if not isinstance(action, tuple) or len(action) != 2:
+            problems.append(
+                f'{gesture}: expected a (kind, value) pair, got {action!r}')
+            continue
+        kind, value = action
+        if kind not in ACTION_KINDS:
+            problems.append(f'{gesture}: unknown action {kind!r} — expected '
+                            f'one of {", ".join(sorted(ACTION_KINDS))}')
+        elif not isinstance(value, str) or not value:
+            problems.append(f'{gesture}: {kind} needs a non-empty name')
+        elif kind == 'hotkey' and value not in SWIPE_KEYCODES:
+            problems.append(f'{gesture}: unknown hotkey {value!r}')
+    return problems
+
+
 def hotkey_script(keycode):
     """AppleScript that presses Ctrl+<keycode>."""
     return ('tell application "System Events" to '

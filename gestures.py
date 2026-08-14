@@ -17,6 +17,12 @@ PINCH_OFF_RATIO = 0.55
 # while the hand moves, so a drag must survive a single bad frame.
 PINCH_RELEASE_FRAMES = 3
 
+# An OK sign closes thumb and index into a ring, the same shape a
+# click-pinch makes, so it reuses the pinch thresholds.
+OK_ON_RATIO = PINCH_ON_RATIO
+OK_OFF_RATIO = PINCH_OFF_RATIO
+OK_COOLDOWN_SEC = 1.5
+
 SWIPE_WINDOW_SEC = 0.30     # look-back window for displacement
 SWIPE_MIN_DISTANCE = 0.18   # normalized-screen units the point must travel
 SWIPE_COOLDOWN_SEC = 0.60   # ignore further swipes right after one fires
@@ -103,6 +109,59 @@ class PinchDetector:
         self.is_pinching = False
         self._open_frames = 0
         self._need_open = True
+
+
+class OkSignDetector:
+    """Fires once when the hand shows an OK sign: thumb and index tips
+    closed into a ring while the other three fingers stay extended.
+
+    The ring is the same shape as a click-pinch, so those three extended
+    fingers are the only thing telling the two gestures apart — the
+    caller decides that part and passes it in as `fingers_extended`.
+
+    Latches like a trigger: holding the sign fires once, and the ring has
+    to open (or the fingers curl) before it can fire again.
+    """
+
+    def __init__(self, on_ratio=OK_ON_RATIO, off_ratio=OK_OFF_RATIO,
+                 cooldown=OK_COOLDOWN_SEC):
+        if on_ratio >= off_ratio:
+            raise ValueError('on_ratio must be smaller than off_ratio')
+        if cooldown < 0:
+            raise ValueError('cooldown must not be negative')
+        self._on = on_ratio
+        self._off = off_ratio
+        self._cooldown = cooldown
+        self._quiet_until = None
+        self.is_showing = False
+
+    def update(self, landmarks, fingers_extended, now):
+        """Returns 'ok_sign' once per showing, otherwise None."""
+        if len(landmarks) != 21:
+            raise ValueError(f'expected 21 landmarks, got {len(landmarks)}')
+
+        scale = hand_scale(landmarks)
+        if scale < 1e-6:
+            return None
+        ratio = distance(landmarks[4], landmarks[8]) / scale
+
+        if self.is_showing:
+            if ratio > self._off or not fingers_extended:
+                self.is_showing = False
+            return None
+
+        if not fingers_extended or ratio >= self._on:
+            return None
+        if self._quiet_until is not None and now < self._quiet_until:
+            return None
+
+        self.is_showing = True
+        self._quiet_until = now + self._cooldown
+        return 'ok_sign'
+
+    def reset(self):
+        """Call when the hand is lost."""
+        self.is_showing = False
 
 
 class SwipeDetector:

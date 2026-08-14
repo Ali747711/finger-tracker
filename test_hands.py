@@ -115,6 +115,33 @@ class TestHandTracker:
         # a returning hand has to hold the palm again before swipes arm
         assert t.palm.update(armed) is False
 
+    def ok_sign_landmarks(self):
+        """Thumb and index closed into a ring, other three extended."""
+        lm = list([(0.5, 0.9)] * 21)
+        lm[0] = (0.5, 0.9)
+        lm[9] = lm[5] = lm[17] = (0.5, 0.7)
+        lm[3] = (0.40, 0.75)
+        for tip in (12, 16, 20):
+            lm[tip - 2] = (0.5, 0.55)
+            lm[tip] = (0.5, 0.35)
+        lm[6] = (0.5, 0.55)
+        lm[8] = (0.5, 0.62)          # index curled down to the thumb
+        lm[4] = (0.47, 0.62)         # thumb tip against the index tip
+        return lm
+
+    def test_ok_sign_fires(self):
+        t = HandTracker()
+        assert 'ok_sign' in t.update(self.ok_sign_landmarks(), 'Right', 0.0)
+
+    def test_hand_lost_mid_sign_does_not_relaunch(self):
+        # dropping out and returning still holding the sign must not open
+        # the app a second time
+        t = HandTracker()
+        sign = self.ok_sign_landmarks()
+        assert 'ok_sign' in t.update(sign, 'Right', 0.0)
+        t.lost()
+        assert 'ok_sign' not in t.update(sign, 'Right', 5.0)
+
     def test_hands_do_not_share_state(self):
         left, right = HandTracker(), HandTracker()
         right.update(hand_landmarks(pinch_ratio=0.2), 'Right', 0.0)

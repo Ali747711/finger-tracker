@@ -10,8 +10,8 @@ so the two failure modes it has — brief dropouts and duplicate labels —
 are both handled here rather than leaking into the camera loop.
 """
 
-from control import PalmGate, is_open_palm
-from gestures import PinchDetector, SwipeDetector
+from control import PalmGate, is_ok_pose, is_open_palm
+from gestures import OkSignDetector, PinchDetector, SwipeDetector
 from hand_logic import MovementTracker, fingers_up
 
 INDEX_TIP = 8
@@ -79,6 +79,7 @@ class HandTracker:
         self.movement = MovementTracker()
         self.pinch = PinchDetector()
         self.swipe = SwipeDetector()
+        self.ok = OkSignDetector()
         self.palm = PalmGate()
         self.fingers = {}
         self.direction = 'still'
@@ -101,6 +102,12 @@ class HandTracker:
         if pinch_event:
             events.append(pinch_event)
 
+        # Same closed ring as a pinch; the three extended fingers are what
+        # make it an OK sign rather than a click.
+        ok_event = self.ok.update(points, is_ok_pose(self.fingers), now)
+        if ok_event:
+            events.append(ok_event)
+
         # Swipes are an open-palm gesture, and the palm must be held: a
         # fast pointer or scroll move with a flickered finger would
         # otherwise fire a desktop switch.
@@ -122,6 +129,9 @@ class HandTracker:
         self.pinch.reset()
         self.swipe.reset()
         self.palm.reset()
+        # The OK latch is deliberately left alone: clearing it would let a
+        # hand that drops out and returns still holding the sign launch
+        # the app a second time. The latch clears when the ring opens.
         self.fingers = {}
         self.direction = 'still'
         self.palm_armed = False

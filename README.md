@@ -4,17 +4,25 @@ Real-time finger movement detection from the Mac webcam, using MediaPipe Hands +
 
 ## v0.6 — custom gesture bindings
 
-Touch **both index fingertips together** to fire a bound action. Out of the box that opens Terminal. Edit [`bindings.py`](bindings.py) to change it — nothing else needs touching:
+| Gesture | Default action |
+|---|---|
+| Touch **both index fingertips** together | Open Terminal |
+| **OK sign** — thumb + index in a ring, other three fingers extended | Open Telegram |
+
+Edit [`bindings.py`](bindings.py) to change them — nothing else needs touching:
 
 ```python
 BINDINGS = {
     'index_touch': ('launch', 'Terminal'),
+    'ok_sign': ('launch', 'Telegram'),
 }
 ```
 
-Available actions: `('launch', 'AppName')` opens an app, `('hotkey', 'swipe_up')` fires a Mission Control shortcut, `('shell', 'command')` runs a shell command.
+Available actions: `('launch', 'AppName')` opens an app, `('hotkey', 'swipe_up')` fires a Mission Control shortcut, `('shell', 'command')` runs a shell command. Bindings are validated at startup, so a typo like `('lanch', 'Telegram')` prints a complaint instead of silently doing nothing.
 
-The touch **latches**: it fires once when your fingertips meet, and won't fire again until they separate — so resting your fingers together doesn't relaunch anything. A 1.5s cooldown covers jittery contact. The gap is measured against your hand size, so it works at any distance from the camera, and both index fingers must be extended, so a fist bump won't trigger it. While the touch is held, the driving hand stops moving the cursor — a deliberate two-hand gesture shouldn't also click something.
+**The OK sign is deliberately kept apart from a click.** Both close the same thumb–index ring, so the three extended fingers are the only difference — with them curled it's a click, with them extended it's an OK sign. While an OK sign is held, the pinch neither clicks nor drags the cursor, and it can't arm a swipe either (an open palm now requires the index extended, which an OK sign curls into the ring).
+
+Both gestures **latch**: they fire once and won't fire again until the shape breaks — opening the ring, or separating the fingertips — so holding a pose doesn't relaunch anything, and a hand that drops out and returns still holding the pose doesn't either. A 1.5s cooldown covers jittery contact. Distances are measured against hand size, so both work at any distance from the camera.
 
 Bindings are gated by the same `c` toggle as everything else: nothing fires while control is off.
 

@@ -1,6 +1,7 @@
 import pytest
 
-from gestures import PinchDetector, SwipeDetector, hand_scale
+from gestures import (OkSignDetector, PinchDetector, SwipeDetector,
+                      hand_scale)
 
 
 def pinch_landmarks(ratio):
@@ -121,6 +122,71 @@ class TestPinchDetector:
         assert p.is_pinching is False
         p.update(pinch_landmarks(0.8))  # user visibly opens the hand
         assert p.update(pinch_landmarks(0.2)) == 'pinch_start'
+
+
+class TestOkSignDetector:
+    """The OK ring is geometrically identical to a click-pinch, so most of
+    these are about the three extended fingers keeping them apart."""
+
+    def test_fires_once_with_the_fingers_extended(self):
+        d = OkSignDetector()
+        assert d.update(pinch_landmarks(0.2), True, 0.0) == 'ok_sign'
+        assert d.is_showing is True
+        assert d.update(pinch_landmarks(0.2), True, 0.1) is None
+
+    def test_curled_fingers_are_a_click_not_an_ok_sign(self):
+        d = OkSignDetector()
+        assert d.update(pinch_landmarks(0.2), False, 0.0) is None
+        assert d.is_showing is False
+
+    def test_open_ring_does_not_fire(self):
+        d = OkSignDetector()
+        assert d.update(pinch_landmarks(0.9), True, 0.0) is None
+
+    def test_holding_the_sign_never_refires(self):
+        # the app must open once, not once per cooldown
+        d = OkSignDetector(cooldown=1.0)
+        assert d.update(pinch_landmarks(0.2), True, 0.0) == 'ok_sign'
+        for moment in (0.5, 1.1, 3.0):
+            assert d.update(pinch_landmarks(0.2), True, moment) is None, moment
+
+    def test_opening_the_ring_rearms_it(self):
+        d = OkSignDetector(cooldown=0.0)
+        assert d.update(pinch_landmarks(0.2), True, 0.0) == 'ok_sign'
+        assert d.update(pinch_landmarks(0.9), True, 0.1) is None
+        assert d.update(pinch_landmarks(0.2), True, 0.2) == 'ok_sign'
+
+    def test_curling_the_fingers_rearms_it(self):
+        d = OkSignDetector(cooldown=0.0)
+        d.update(pinch_landmarks(0.2), True, 0.0)
+        assert d.update(pinch_landmarks(0.2), False, 0.1) is None
+        assert d.is_showing is False
+
+    def test_cooldown_blocks_a_rapid_repeat(self):
+        d = OkSignDetector(cooldown=1.5)
+        assert d.update(pinch_landmarks(0.2), True, 0.0) == 'ok_sign'
+        d.update(pinch_landmarks(0.9), True, 0.2)      # ring opened
+        assert d.update(pinch_landmarks(0.2), True, 0.5) is None
+
+    def test_degenerate_scale_ignored(self):
+        d = OkSignDetector()
+        assert d.update([(0.5, 0.5)] * 21, True, 0.0) is None
+
+    def test_rejects_wrong_landmark_count(self):
+        with pytest.raises(ValueError):
+            OkSignDetector().update([(0.5, 0.5)] * 20, True, 0.0)
+
+    def test_rejects_bad_parameters(self):
+        with pytest.raises(ValueError):
+            OkSignDetector(on_ratio=0.8, off_ratio=0.2)
+        with pytest.raises(ValueError):
+            OkSignDetector(cooldown=-1)
+
+    def test_reset_clears_the_latch(self):
+        d = OkSignDetector()
+        d.update(pinch_landmarks(0.2), True, 0.0)
+        d.reset()
+        assert d.is_showing is False
 
 
 class TestSwipeDetector:

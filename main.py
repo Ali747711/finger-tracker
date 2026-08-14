@@ -18,8 +18,8 @@ import mediapipe as mp
 from bindings import BINDINGS
 from control import ActionRouter, ControlSession, CursorMapper
 from hands import HandRegistry, assign_labels, pick_primary
-from mac_actions import (MacController, is_trusted, screen_size,
-                         start_kill_listener)
+from mac_actions import (MacController, binding_problems, is_trusted,
+                         screen_size, start_kill_listener)
 from two_hand import IndexTouchDetector
 
 THUMB_TIP = 4
@@ -111,6 +111,9 @@ def process_hand(frame, hand, label, tracker, now, drawer):
 
 
 def main():
+    for problem in binding_problems(BINDINGS):
+        print(f'bindings.py: {problem}')
+
     hands = mp.solutions.hands.Hands(
         max_num_hands=2,
         model_complexity=0,  # lightest model — fine for an Intel CPU
@@ -186,7 +189,6 @@ def main():
                 # a deliberate two-hand gesture must not also leave a drag
                 # held by whichever hand was driving
                 controller.execute(session.hand_lost())
-                controller.execute(session.bound(BINDINGS.get(touch)))
 
             primary = pick_primary(active)
             if primary != controlling:
@@ -205,6 +207,8 @@ def main():
                 print(f'event: {label} {event}')
                 flash = (f'{label} {event.replace("_", " ")}'.upper(),
                          now + FLASH_SEC)
+                # any gesture named in bindings.py runs its action
+                controller.execute(session.bound(BINDINGS.get(event)))
 
             if flash and now < flash[1]:
                 draw_flash(frame, flash[0])

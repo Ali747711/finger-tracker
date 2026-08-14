@@ -1,8 +1,8 @@
 import pytest
 
 from control import (ActionRouter, ControlSession, CursorMapper, PalmGate,
-                     ScrollTracker, is_open_palm, is_pointer_pose,
-                     is_scroll_pose)
+                     ScrollTracker, is_ok_pose, is_open_palm,
+                     is_pointer_pose, is_scroll_pose)
 
 
 def fingers(**overrides):
@@ -101,6 +101,18 @@ class TestPoses:
         assert is_scroll_pose(OPEN_PALM) is False
         assert is_scroll_pose(fingers(index=True, middle=True,
                                       ring=True)) is False
+
+    def test_ok_pose_is_the_other_three_fingers(self):
+        assert is_ok_pose(fingers(middle=True, ring=True, pinky=True)) is True
+        assert is_ok_pose(fingers(middle=True, ring=True)) is False
+        assert is_ok_pose(FIST) is False
+        assert is_ok_pose({}) is False   # no reading yet
+
+    def test_ok_sign_does_not_read_as_an_open_palm(self):
+        # index curled into the ring plus thumb and three fingers up is
+        # four extended fingers, which a plain count would arm swipes on
+        ok = fingers(thumb=True, middle=True, ring=True, pinky=True)
+        assert is_open_palm(ok) is False
 
     def test_poses_are_mutually_exclusive(self):
         for pose in (POINTER, SCROLL, OPEN_PALM, FIST):
@@ -225,6 +237,30 @@ class TestActionRouter:
         # subsequent drag frames track the finger again
         follow = r.route(FIST, True, [], (0.25, 0.25))
         assert follow == [('move', 250, 200)]
+
+    def test_ok_sign_ring_does_not_click(self):
+        # an OK sign closes the same thumb-index ring a click does, so the
+        # press must be suppressed or every OK sign clicks whatever is
+        # under the cursor
+        r = make_router()
+        ok = fingers(thumb=True, middle=True, ring=True, pinky=True)
+        actions = r.route(ok, True, ['pinch_start'], (0.5, 0.5))
+        assert ('press',) not in actions
+        assert r.is_dragging is False
+    def test_holding_the_ok_sign_does_not_drag_the_cursor(self):
+        # the press frame never moves the cursor anyway, so this has to
+        # check a later frame of the same held sign
+        r = make_router()
+        ok = fingers(thumb=True, middle=True, ring=True, pinky=True)
+        r.route(ok, True, ['pinch_start'], (0.5, 0.5))
+        assert r.route(ok, True, [], (0.25, 0.25)) == []
+
+    def test_click_pinch_still_presses(self):
+        # the same event with the three fingers curled is a real click
+        r = make_router()
+        actions = r.route(FIST, True, ['pinch_start'], (0.5, 0.5))
+        assert ('press',) in actions
+        assert r.is_dragging is True
 
     def test_second_pinch_start_cannot_double_press(self):
         r = make_router()
