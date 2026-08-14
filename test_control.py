@@ -386,3 +386,19 @@ class TestControlSession:
 
     def test_hand_lost_while_off_is_safe(self):
         assert self.make().hand_lost() == []
+
+    def test_bound_action_blocked_while_off(self):
+        # a gesture binding must not launch anything before the user
+        # deliberately turns control on
+        s = self.make()
+        assert s.bound(('launch', 'Terminal')) == []
+
+    def test_bound_action_runs_while_on(self):
+        s = self.make()
+        s.toggle()
+        assert s.bound(('launch', 'Terminal')) == [('launch', 'Terminal')]
+
+    def test_unbound_gesture_does_nothing(self):
+        s = self.make()
+        s.toggle()
+        assert s.bound(None) == []

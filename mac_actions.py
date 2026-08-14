@@ -28,6 +28,29 @@ def hotkey_script(keycode):
             f'key code {keycode} using control down')
 
 
+def _spawn(argv, background):
+    """Run a command, optionally without blocking the caller.
+
+    capture_output keeps a subprocess's noise off the app's own output,
+    and run() reaps the child so a long session can't leak zombies.
+    """
+    if not background:
+        return subprocess.run(argv, capture_output=True)
+    threading.Thread(target=subprocess.run, args=(argv,),
+                     kwargs={'capture_output': True}, daemon=True).start()
+    return None
+
+
+def launch_app(name, background=True):
+    """Open an application by name, the way `open -a` does."""
+    return _spawn(['open', '-a', name], background)
+
+
+def run_shell(command, background=True):
+    """Run a shell command bound to a gesture."""
+    return _spawn(['/bin/sh', '-c', command], background)
+
+
 def post_system_hotkey(keycode, background=True):
     """Fire Ctrl+<keycode> as a genuine system shortcut.
 
@@ -42,17 +65,7 @@ def post_system_hotkey(keycode, background=True):
     osascript costs ~100 ms, so it runs on a throwaway thread instead of
     stalling the camera loop; the swipe cooldown stops these overlapping.
     """
-    script = hotkey_script(keycode)
-    if not background:
-        return _run_script(script)
-    threading.Thread(target=_run_script, args=(script,), daemon=True).start()
-    return None
-
-
-def _run_script(script):
-    # capture_output keeps AppleScript errors off the app's own output,
-    # and run() reaps the child so a long session can't leak zombies
-    return subprocess.run(['osascript', '-e', script], capture_output=True)
+    return _spawn(['osascript', '-e', hotkey_script(keycode)], background)
 
 
 def screen_size():
@@ -100,6 +113,8 @@ class MacController:
     def __init__(self):
         self._mouse = MouseController()
         self._hotkey = post_system_hotkey
+        self._launch = launch_app
+        self._shell = run_shell
 
     def execute(self, actions):
         for action in actions:
@@ -117,3 +132,7 @@ class MacController:
                 keycode = SWIPE_KEYCODES.get(action[1])
                 if keycode is not None:
                     self._hotkey(keycode)
+            elif kind == 'launch':
+                self._launch(action[1])
+            elif kind == 'shell':
+                self._shell(action[1])

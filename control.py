@@ -323,3 +323,11 @@ class ControlSession:
 
     def hand_lost(self):
         return self._router.suspend()
+
+    def bound(self, action):
+        """A custom action bound to a gesture (launch an app, run a
+        command). Gated by the same switch as everything else, so a
+        binding cannot fire while control is off."""
+        if not self.control_on or action is None:
+            return []
+        return [action]

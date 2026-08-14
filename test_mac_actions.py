@@ -31,29 +31,34 @@ class FakeMouse:
         self.calls.append(('scroll', dx, dy))
 
 
-class FakeHotkey:
-    """Stands in for post_system_hotkey — records key codes instead of
-    posting real events to the OS."""
+class FakeCall:
+    """Stands in for the OS-touching helpers — records arguments instead
+    of posting events or spawning processes."""
 
     def __init__(self):
         self.calls = []
 
-    def __call__(self, keycode):
-        self.calls.append(keycode)
+    def __call__(self, value):
+        self.calls.append(value)
 
 
 def make_controller():
-    # __new__ skips __init__, so no real OS controllers are created
+    """A controller wired entirely to fakes. __new__ skips __init__, so
+    no real OS controllers are created."""
     controller = MacController.__new__(MacController)
-    mouse, hotkey = FakeMouse(), FakeHotkey()
-    controller._mouse = mouse
-    controller._hotkey = hotkey
-    return controller, mouse, hotkey
+    fakes = {'mouse': FakeMouse(), 'hotkey': FakeCall(),
+             'launch': FakeCall(), 'shell': FakeCall()}
+    controller._mouse = fakes['mouse']
+    controller._hotkey = fakes['hotkey']
+    controller._launch = fakes['launch']
+    controller._shell = fakes['shell']
+    return controller, fakes
 
 
 class TestDispatch:
     def test_move_press_release(self):
-        controller, mouse, _ = make_controller()
+        controller, fakes = make_controller()
+        mouse = fakes['mouse']
         controller.execute([('move', 12, 34), ('press',), ('release',)])
         assert mouse.calls == [
             ('position', (12, 34)),
@@ -66,13 +71,15 @@ class TestDispatch:
         # same order: horizontal first, vertical second. Swapping these
         # sends vertical hand motion to the horizontal axis, which most
         # apps ignore — so scrolling looks like it barely works.
-        controller, mouse, _ = make_controller()
+        controller, fakes = make_controller()
+        mouse = fakes['mouse']
         controller.execute([('scroll', 2, -3)])
         assert mouse.calls == [('scroll', 2, -3)]
 
     def test_each_swipe_maps_to_its_arrow_key(self):
         for name, keycode in SWIPE_KEYCODES.items():
-            controller, _, hotkey = make_controller()
+            controller, fakes = make_controller()
+            hotkey = fakes['hotkey']
             controller.execute([('hotkey', name)])
             assert hotkey.calls == [keycode], name
 
@@ -90,11 +97,22 @@ class TestDispatch:
                           'key code 126 using control down')
 
     def test_unknown_hotkey_is_ignored(self):
-        controller, _, hotkey = make_controller()
+        controller, fakes = make_controller()
+        hotkey = fakes['hotkey']
         controller.execute([('hotkey', 'swipe_diagonal')])
         assert hotkey.calls == []
 
+    def test_launch_opens_the_named_app(self):
+        controller, fakes = make_controller()
+        controller.execute([('launch', 'Terminal')])
+        assert fakes['launch'].calls == ['Terminal']
+
+    def test_shell_runs_the_command(self):
+        controller, fakes = make_controller()
+        controller.execute([('shell', 'echo hi')])
+        assert fakes['shell'].calls == ['echo hi']
+
     def test_empty_action_list_is_noop(self):
-        controller, mouse, hotkey = make_controller()
+        controller, fakes = make_controller()
         controller.execute([])
-        assert mouse.calls == [] and hotkey.calls == []
+        assert all(f.calls == [] for f in fakes.values())

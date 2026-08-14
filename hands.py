@@ -83,6 +83,7 @@ class HandTracker:
         self.fingers = {}
         self.direction = 'still'
         self.palm_armed = False
+        self.points = []   # this frame's landmarks, for two-hand gestures
 
     @property
     def is_pinching(self):
@@ -91,6 +92,7 @@ class HandTracker:
     def update(self, points, label, now):
         """points: 21 aspect-corrected (x, y) landmarks for this hand.
         Returns the gesture events it produced this frame."""
+        self.points = points
         self.fingers = fingers_up(points, label)
         self.direction = self.movement.update(*points[INDEX_TIP])
 
@@ -123,6 +125,7 @@ class HandTracker:
         self.fingers = {}
         self.direction = 'still'
         self.palm_armed = False
+        self.points = []
         return events
 
     def open_palm(self):

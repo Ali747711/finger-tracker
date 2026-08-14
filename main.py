@@ -15,10 +15,12 @@ import time
 import cv2
 import mediapipe as mp
 
+from bindings import BINDINGS
 from control import ActionRouter, ControlSession, CursorMapper
 from hands import HandRegistry, assign_labels, pick_primary
 from mac_actions import (MacController, is_trusted, screen_size,
                          start_kill_listener)
+from two_hand import IndexTouchDetector
 
 THUMB_TIP = 4
 INDEX_TIP = 8
@@ -117,6 +119,7 @@ def main():
     )
     drawer = mp.solutions.drawing_utils
     registry = HandRegistry()
+    two_hand = IndexTouchDetector()
     session = ControlSession(ActionRouter(CursorMapper(*screen_size())))
     controller = MacController()
     kill = threading.Event()
@@ -174,13 +177,24 @@ def main():
             if not active:
                 status.append('no hand detected')
 
+            # Two-hand gestures, measured across both hands at once
+            pair = [(frames[label][0].points, frames[label][0].fingers)
+                    for label in sorted(frames)]
+            touch = two_hand.update(pair, now)
+            if touch:
+                events.append(('both hands', touch))
+                # a deliberate two-hand gesture must not also leave a drag
+                # held by whichever hand was driving
+                controller.execute(session.hand_lost())
+                controller.execute(session.bound(BINDINGS.get(touch)))
+
             primary = pick_primary(active)
             if primary != controlling:
                 # control changed hands (or ran out of hands): never leave
                 # a drag held by the hand that just left
                 controller.execute(session.hand_lost())
                 controlling = primary
-            if primary in frames:
+            if primary in frames and not two_hand.is_touching:
                 tracker, hand_events, raw_index = frames[primary]
                 # only the controlling hand's gestures reach macOS
                 controller.execute(session.frame(

@@ -2,6 +2,22 @@
 
 Real-time finger movement detection from the Mac webcam, using MediaPipe Hands + OpenCV.
 
+## v0.6 — custom gesture bindings
+
+Touch **both index fingertips together** to fire a bound action. Out of the box that opens Terminal. Edit [`bindings.py`](bindings.py) to change it — nothing else needs touching:
+
+```python
+BINDINGS = {
+    'index_touch': ('launch', 'Terminal'),
+}
+```
+
+Available actions: `('launch', 'AppName')` opens an app, `('hotkey', 'swipe_up')` fires a Mission Control shortcut, `('shell', 'command')` runs a shell command.
+
+The touch **latches**: it fires once when your fingertips meet, and won't fire again until they separate — so resting your fingers together doesn't relaunch anything. A 1.5s cooldown covers jittery contact. The gap is measured against your hand size, so it works at any distance from the camera, and both index fingers must be extended, so a fist bump won't trigger it. While the touch is held, the driving hand stops moving the cursor — a deliberate two-hand gesture shouldn't also click something.
+
+Bindings are gated by the same `c` toggle as everything else: nothing fires while control is off.
+
 ## v0.5 — two hands
 
 Both hands are tracked at once, each with completely independent gesture state — a pinch on one hand can't disturb the other's detectors. Hand identity is keyed on MediaPipe's handedness label, with the two ways that goes wrong handled explicitly:
@@ -11,7 +27,7 @@ Both hands are tracked at once, each with completely independent gesture state �
 
 **The right hand drives macOS control** when both are visible (`PRIMARY_HAND` in `hands.py`); with one hand up, that hand drives regardless of which it is. If control changes hands, any held drag is released first. The overlay shows a line per hand plus which one is `driving`.
 
-The left hand is fully tracked — its fingers, pinch, scroll and swipe events are all detected and logged — but does not yet act on macOS. That's the hook for the two-hand features coming next.
+The off hand is fully tracked — its fingers, pinch, scroll and swipe events are all detected and logged — but only drives macOS through two-hand gestures (see v0.6), never on its own.
 
 ## v0.3 — macOS control
 
@@ -32,7 +48,7 @@ Tuning knobs in `control.py`:
 
 | Constant | Effect |
 |---|---|
-| `SCROLL_SENSITIVITY` | Scroll steps per frame-height of hand travel. pynput posts each step as **10 px** on macOS, so 150 ≈ 1500 px per full sweep. |
+| `SCROLL_SENSITIVITY` | Scroll steps per frame-height of hand travel. pynput posts each step as **10 px** on macOS, so 300 ≈ 3000 px per full sweep. |
 | `SCROLL_NATURAL` | Flip if scroll direction feels wrong. Synthetic scroll direction is independent of the macOS "Natural scrolling" setting. |
 | `CURSOR_MIN_ALPHA` | Damping when the hand is nearly still. Lower = steadier for clicking, slower to settle. |
 | `CURSOR_MAX_ALPHA` | Damping when moving fast. 1.0 = zero lag. |
@@ -88,10 +104,13 @@ python -m pytest
 |---|---|
 | `main.py` | Camera loop, MediaPipe wiring, on-screen overlay, control toggle |
 | `hands.py` | Per-hand gesture state, hand identity/registry, primary-hand selection — unit-tested |
+| `two_hand.py` | Gestures needing both hands (index-fingertip touch) — unit-tested |
+| `bindings.py` | **Edit this** — maps gesture names to actions |
+| `diagnose_hotkey.py` | Compares key-posting methods when a shortcut won't fire |
 | `hand_logic.py` | Pure logic (fingers up, movement direction) — no camera deps, unit-tested |
 | `gestures.py` | Pure gesture detectors (pinch with hysteresis, swipe with cooldown) — time injected, unit-tested |
 | `control.py` | Pure control logic (cursor mapping with margin+smoothing, action routing, drag state) — unit-tested |
-| `mac_actions.py` | The only file that touches macOS: executes actions via pynput |
+| `mac_actions.py` | The only file that touches macOS: mouse via pynput, shortcuts and launches via AppleScript/`open` |
 | `test_*.py` | Test suites for all pure modules |
 
 ## Upgrade ideas (roadmap)
@@ -101,6 +120,7 @@ python -m pytest
 - [x] Map gestures to macOS actions (cursor, click/drag, spaces) via pynput *(v0.3)*
 - [x] Scroll gesture (index + middle up, move hand) *(v0.4)*
 - [x] Two-hand tracking with independent per-hand state *(v0.5)*
-- [ ] Two-hand gestures (modifier hand, two-hand zoom/rotate, off-hand shortcuts)
+- [x] Custom gesture bindings + two-hand index touch *(v0.6)*
+- [ ] More two-hand gestures (modifier hand, zoom/rotate from hand distance)
 - [ ] Expose events over WebSocket (FastAPI) so other apps can subscribe
 - [ ] Config file for gesture→action mappings
