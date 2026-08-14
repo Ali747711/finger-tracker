@@ -1,0 +1,148 @@
+"""Gesture detectors built on per-frame hand landmarks.
+
+Pure logic: positions and timestamps come in, gesture events come out.
+Time is always injected (never read from the clock) so detectors are
+deterministic and unit-testable.
+"""
+
+import math
+from collections import deque
+
+# Pinch thresholds as a fraction of hand size (wrist -> middle-finger MCP).
+# Two thresholds (on < off) give hysteresis so the state can't flicker
+# when the distance hovers around a single cutoff.
+PINCH_ON_RATIO = 0.35
+PINCH_OFF_RATIO = 0.55
+
+SWIPE_WINDOW_SEC = 0.30     # look-back window for displacement
+SWIPE_MIN_DISTANCE = 0.18   # normalized-screen units the point must travel
+SWIPE_COOLDOWN_SEC = 0.60   # ignore further swipes right after one fires
+SWIPE_DOMINANCE = 1.5       # dominant axis must beat the other by this factor
+
+
+def distance(a, b):
+    return math.hypot(a[0] - b[0], a[1] - b[1])
+
+
+def hand_scale(landmarks):
+    """Reference length for ratio thresholds.
+
+    Max of two roughly perpendicular palm segments — wrist (0) to
+    middle-finger MCP (9), and the knuckle span index MCP (5) to pinky
+    MCP (17). Either alone collapses under 2D projection when the hand
+    pitches or yaws toward the camera; the max stays usable in any
+    orientation and is independent of distance from the camera.
+    """
+    return max(distance(landmarks[0], landmarks[9]),
+               distance(landmarks[5], landmarks[17]))
+
+
+class PinchDetector:
+    """Thumb-tip (4) to index-tip (8) pinch with hysteresis."""
+
+    def __init__(self, on_ratio=PINCH_ON_RATIO, off_ratio=PINCH_OFF_RATIO):
+        if on_ratio >= off_ratio:
+            raise ValueError('on_ratio must be smaller than off_ratio')
+        self._on = on_ratio
+        self._off = off_ratio
+        self._need_open = False
+        self.is_pinching = False
+
+    def update(self, landmarks):
+        """Feed one frame of 21 (x, y) landmarks.
+
+        Returns 'pinch_start', 'pinch_end', or None.
+        """
+        if len(landmarks) != 21:
+            raise ValueError(f'expected 21 landmarks, got {len(landmarks)}')
+
+        scale = hand_scale(landmarks)
+        if scale < 1e-6:  # degenerate frame — ignore rather than divide by ~0
+            return None
+
+        ratio = distance(landmarks[4], landmarks[8]) / scale
+
+        # After a reset, wait for one clearly-open frame before allowing a
+        # new pinch: a hand re-detected mid-pinch must not auto-fire
+        # pinch_start (which would re-press the mouse at a jumped position).
+        if self._need_open:
+            if ratio > self._off:
+                self._need_open = False
+            return None
+
+        if not self.is_pinching and ratio < self._on:
+            self.is_pinching = True
+            return 'pinch_start'
+        if self.is_pinching and ratio > self._off:
+            self.is_pinching = False
+            return 'pinch_end'
+        return None
+
+    def reset(self):
+        """Call when the hand is lost."""
+        self.is_pinching = False
+        self._need_open = True
+
+
+class SwipeDetector:
+    """Detects fast directional flicks of one tracked point.
+
+    A swipe fires when the point travels `min_distance` within
+    `window_sec` with one axis clearly dominant, then the detector goes
+    quiet for `cooldown_sec` so a single flick can't fire twice.
+    """
+
+    def __init__(self, window_sec=SWIPE_WINDOW_SEC,
+                 min_distance=SWIPE_MIN_DISTANCE,
+                 cooldown_sec=SWIPE_COOLDOWN_SEC,
+                 dominance=SWIPE_DOMINANCE):
+        self._window = window_sec
+        self._min_distance = min_distance
+        self._cooldown = cooldown_sec
+        self._dominance = dominance
+        self._history = deque()  # (t, x, y), trimmed to the window
+        self._quiet_until = None
+
+    def update(self, x, y, now):
+        """Feed the tracked point and current timestamp (seconds).
+
+        Returns 'swipe_left' / 'swipe_right' / 'swipe_up' / 'swipe_down'
+        or None.
+        """
+        if self._quiet_until is not None:
+            if now < self._quiet_until:
+                # Quiet period: don't record the hand's return stroke, or it
+                # would fire a phantom reverse swipe the moment cooldown ends.
+                return None
+            self._quiet_until = None
+            self._history.clear()
+
+        self._history.append((now, x, y))
+        while self._history and self._history[0][0] < now - self._window:
+            self._history.popleft()
+
+        if len(self._history) < 2:
+            return None
+
+        _, x0, y0 = self._history[0]
+        dx, dy = x - x0, y - y0
+        adx, ady = abs(dx), abs(dy)
+        if max(adx, ady) < self._min_distance:
+            return None
+
+        if adx >= ady * self._dominance:
+            direction = 'swipe_right' if dx > 0 else 'swipe_left'
+        elif ady >= adx * self._dominance:
+            # y grows downward in image coordinates
+            direction = 'swipe_down' if dy > 0 else 'swipe_up'
+        else:
+            return None  # diagonal — ambiguous, ignore
+
+        self._quiet_until = now + self._cooldown
+        self._history.clear()
+        return direction
+
+    def reset(self):
+        """Call when the hand is lost. Keeps an active cooldown so a
+        re-detected hand can't double-fire the same flick."""
+        self._history.clear()

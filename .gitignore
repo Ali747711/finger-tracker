@@ -1,0 +1,14 @@
+# Claude Code tooling
+.agents/
+.claude/
+skills-lock.json
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# macOS
+.DS_Store
