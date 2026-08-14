@@ -1,8 +1,8 @@
 import pytest
 
 from control import (ActionRouter, ControlSession, CursorMapper, PalmGate,
-                     ScrollTracker, is_ok_pose, is_open_palm,
-                     is_pointer_pose, is_scroll_pose)
+                     ScrollTracker, is_open_palm, is_pointer_pose,
+                     is_scroll_pose)
 
 
 def fingers(**overrides):
@@ -101,12 +101,6 @@ class TestPoses:
         assert is_scroll_pose(OPEN_PALM) is False
         assert is_scroll_pose(fingers(index=True, middle=True,
                                       ring=True)) is False
-
-    def test_ok_pose_is_the_other_three_fingers(self):
-        assert is_ok_pose(fingers(middle=True, ring=True, pinky=True)) is True
-        assert is_ok_pose(fingers(middle=True, ring=True)) is False
-        assert is_ok_pose(FIST) is False
-        assert is_ok_pose({}) is False   # no reading yet
 
     def test_ok_sign_does_not_read_as_an_open_palm(self):
         # index curled into the ring plus thumb and three fingers up is
@@ -244,16 +238,37 @@ class TestActionRouter:
         # under the cursor
         r = make_router()
         ok = fingers(thumb=True, middle=True, ring=True, pinky=True)
-        actions = r.route(ok, True, ['pinch_start'], (0.5, 0.5))
+        actions = r.route(ok, True, ['pinch_start'], (0.5, 0.5),
+                          ok_showing=True)
         assert ('press',) not in actions
         assert r.is_dragging is False
+
     def test_holding_the_ok_sign_does_not_drag_the_cursor(self):
         # the press frame never moves the cursor anyway, so this has to
         # check a later frame of the same held sign
         r = make_router()
         ok = fingers(thumb=True, middle=True, ring=True, pinky=True)
-        r.route(ok, True, ['pinch_start'], (0.5, 0.5))
-        assert r.route(ok, True, [], (0.25, 0.25)) == []
+        r.route(ok, True, ['pinch_start'], (0.5, 0.5), ok_showing=True)
+        assert r.route(ok, True, [], (0.25, 0.25), ok_showing=True) == []
+
+    def test_relaxed_pinch_still_clicks(self):
+        # `fingers_up` calls a merely relaxed finger extended, so an
+        # ordinary pinch often reports middle/ring/pinky up. Only the OK
+        # detector decides it's an OK sign — reading the finger dict here
+        # stopped normal clicks working.
+        r = make_router()
+        relaxed = fingers(thumb=True, middle=True, ring=True, pinky=True)
+        actions = r.route(relaxed, True, ['pinch_start'], (0.5, 0.5))
+        assert ('press',) in actions
+        assert r.is_dragging is True
+
+    def test_ok_reading_cannot_strand_a_held_drag(self):
+        # a stray OK reading mid-drag must not freeze the cursor while the
+        # button stays down
+        r = make_router()
+        r.route(FIST, True, ['pinch_start'], (0.5, 0.5))
+        actions = r.route(FIST, True, [], (0.25, 0.25), ok_showing=True)
+        assert actions == [('move', 250, 200)]
 
     def test_click_pinch_still_presses(self):
         # the same event with the three fingers curled is a real click
@@ -422,6 +437,18 @@ class TestControlSession:
 
     def test_hand_lost_while_off_is_safe(self):
         assert self.make().hand_lost() == []
+
+    def test_frame_carries_the_ok_sign_flag_through(self):
+        ok = fingers(thumb=True, middle=True, ring=True, pinky=True)
+        held = self.make()
+        held.toggle()
+        assert held.frame(ok, True, ['pinch_start'], (0.5, 0.5),
+                          ok_showing=True) == []
+        # the identical frame without the flag is an ordinary click
+        clicking = self.make()
+        clicking.toggle()
+        assert ('press',) in clicking.frame(ok, True, ['pinch_start'],
+                                           (0.5, 0.5))
 
     def test_bound_action_blocked_while_off(self):
         # a gesture binding must not launch anything before the user

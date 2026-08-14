@@ -79,13 +79,37 @@ class TestIndexTouchDetector:
         assert d.update(hands, 0.0) is None
 
     def test_dropped_frame_does_not_refire(self):
-        # a frame where only one hand is seen must not clear the latch,
+        # a frame where only one hand is seen must not re-arm the trigger,
         # or the same touch would fire twice
         d = IndexTouchDetector()
         assert d.update(touching(), 0.0) == 'index_touch'
         assert d.update([hand(0.5)], 0.1) is None
-        assert d.is_touching is True
         assert d.update(touching(), 0.2) is None
+
+    def test_losing_a_hand_reports_no_contact(self):
+        # the camera loop holds off single-hand control while the tips are
+        # touching, so a stale True here froze the cursor, clicks and
+        # scrolling permanently once a touch had happened
+        d = IndexTouchDetector()
+        d.update(touching(), 0.0)
+        assert d.is_touching is True
+        d.update([hand(0.5)], 0.1)
+        assert d.is_touching is False
+        for moment in (1.0, 5.0, 60.0):
+            d.update([hand(0.5)], moment)
+            assert d.is_touching is False, moment
+
+    def test_one_index_curled_reports_no_contact(self):
+        d = IndexTouchDetector()
+        d.update(touching(), 0.0)
+        d.update([hand(0.5), hand(0.52, index_up=False)], 0.1)
+        assert d.is_touching is False
+
+    def test_hands_apart_report_no_contact(self):
+        d = IndexTouchDetector()
+        d.update(touching(), 0.0)
+        d.update(apart(), 0.5)
+        assert d.is_touching is False
 
     def test_works_at_any_distance_from_camera(self):
         # the same gesture, hands further from the camera (smaller scale)

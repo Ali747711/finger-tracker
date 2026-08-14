@@ -1,7 +1,7 @@
 import pytest
 
 from gestures import (OkSignDetector, PinchDetector, SwipeDetector,
-                      hand_scale)
+                      fingers_clearly_extended, hand_scale)
 
 
 def pinch_landmarks(ratio):
@@ -124,57 +124,81 @@ class TestPinchDetector:
         assert p.update(pinch_landmarks(0.2)) == 'pinch_start'
 
 
+def ok_landmarks(ratio, fingers='extended'):
+    """Hand scale 0.2, thumb-index gap of ratio * scale, and the other
+    three fingers 'extended' (clearly), 'relaxed' (just above the joint,
+    which is what an ordinary pinch looks like), or 'curled'."""
+    lm = list([(0.5, 0.5)] * 21)
+    lm[0] = (0.5, 0.9)             # wrist
+    lm[9] = lm[5] = lm[17] = (0.5, 0.7)   # scale = 0.2
+    tip_y = {'extended': 0.35, 'relaxed': 0.52, 'curled': 0.65}[fingers]
+    for tip in (12, 16, 20):
+        lm[tip - 2] = (0.5, 0.55)  # PIP joints
+        lm[tip] = (0.5, tip_y)
+    lm[4] = (0.4, 0.5)
+    lm[8] = (0.4 + ratio * 0.2, 0.5)
+    return lm
+
+
 class TestOkSignDetector:
     """The OK ring is geometrically identical to a click-pinch, so most of
     these are about the three extended fingers keeping them apart."""
 
     def test_fires_once_with_the_fingers_extended(self):
         d = OkSignDetector()
-        assert d.update(pinch_landmarks(0.2), True, 0.0) == 'ok_sign'
+        assert d.update(ok_landmarks(0.2), 0.0) == 'ok_sign'
         assert d.is_showing is True
-        assert d.update(pinch_landmarks(0.2), True, 0.1) is None
+        assert d.update(ok_landmarks(0.2), 0.1) is None
 
     def test_curled_fingers_are_a_click_not_an_ok_sign(self):
         d = OkSignDetector()
-        assert d.update(pinch_landmarks(0.2), False, 0.0) is None
+        assert d.update(ok_landmarks(0.2, 'curled'), 0.0) is None
+        assert d.is_showing is False
+
+    def test_relaxed_fingers_are_a_click_not_an_ok_sign(self):
+        # this is the case that matters: an ordinary pinch leaves the other
+        # fingers loosely above their joints, and treating that as an OK
+        # sign stopped clicking from working at all
+        d = OkSignDetector()
+        assert d.update(ok_landmarks(0.2, 'relaxed'), 0.0) is None
         assert d.is_showing is False
 
     def test_open_ring_does_not_fire(self):
         d = OkSignDetector()
-        assert d.update(pinch_landmarks(0.9), True, 0.0) is None
+        assert d.update(ok_landmarks(0.9), 0.0) is None
 
     def test_holding_the_sign_never_refires(self):
         # the app must open once, not once per cooldown
         d = OkSignDetector(cooldown=1.0)
-        assert d.update(pinch_landmarks(0.2), True, 0.0) == 'ok_sign'
+        assert d.update(ok_landmarks(0.2), 0.0) == 'ok_sign'
         for moment in (0.5, 1.1, 3.0):
-            assert d.update(pinch_landmarks(0.2), True, moment) is None, moment
+            assert d.update(ok_landmarks(0.2), moment) is None, moment
 
     def test_opening_the_ring_rearms_it(self):
         d = OkSignDetector(cooldown=0.0)
-        assert d.update(pinch_landmarks(0.2), True, 0.0) == 'ok_sign'
-        assert d.update(pinch_landmarks(0.9), True, 0.1) is None
-        assert d.update(pinch_landmarks(0.2), True, 0.2) == 'ok_sign'
+        assert d.update(ok_landmarks(0.2), 0.0) == 'ok_sign'
+        assert d.update(ok_landmarks(0.9), 0.1) is None
+        assert d.update(ok_landmarks(0.2), 0.2) == 'ok_sign'
 
     def test_curling_the_fingers_rearms_it(self):
         d = OkSignDetector(cooldown=0.0)
-        d.update(pinch_landmarks(0.2), True, 0.0)
-        assert d.update(pinch_landmarks(0.2), False, 0.1) is None
+        d.update(ok_landmarks(0.2), 0.0)
+        assert d.update(ok_landmarks(0.2, 'curled'), 0.1) is None
         assert d.is_showing is False
 
     def test_cooldown_blocks_a_rapid_repeat(self):
         d = OkSignDetector(cooldown=1.5)
-        assert d.update(pinch_landmarks(0.2), True, 0.0) == 'ok_sign'
-        d.update(pinch_landmarks(0.9), True, 0.2)      # ring opened
-        assert d.update(pinch_landmarks(0.2), True, 0.5) is None
+        assert d.update(ok_landmarks(0.2), 0.0) == 'ok_sign'
+        d.update(ok_landmarks(0.9), 0.2)      # ring opened
+        assert d.update(ok_landmarks(0.2), 0.5) is None
 
     def test_degenerate_scale_ignored(self):
         d = OkSignDetector()
-        assert d.update([(0.5, 0.5)] * 21, True, 0.0) is None
+        assert d.update([(0.5, 0.5)] * 21, 0.0) is None
 
     def test_rejects_wrong_landmark_count(self):
         with pytest.raises(ValueError):
-            OkSignDetector().update([(0.5, 0.5)] * 20, True, 0.0)
+            OkSignDetector().update([(0.5, 0.5)] * 20, 0.0)
 
     def test_rejects_bad_parameters(self):
         with pytest.raises(ValueError):
@@ -184,9 +208,24 @@ class TestOkSignDetector:
 
     def test_reset_clears_the_latch(self):
         d = OkSignDetector()
-        d.update(pinch_landmarks(0.2), True, 0.0)
+        d.update(ok_landmarks(0.2), 0.0)
         d.reset()
         assert d.is_showing is False
+
+
+class TestFingersClearlyExtended:
+    def test_extended_passes(self):
+        assert fingers_clearly_extended(ok_landmarks(1.0)) is True
+
+    def test_relaxed_fails(self):
+        # only just above the joint — not a deliberate extension
+        assert fingers_clearly_extended(ok_landmarks(1.0, 'relaxed')) is False
+
+    def test_curled_fails(self):
+        assert fingers_clearly_extended(ok_landmarks(1.0, 'curled')) is False
+
+    def test_degenerate_scale_fails(self):
+        assert fingers_clearly_extended([(0.5, 0.5)] * 21) is False
 
 
 class TestSwipeDetector:

@@ -112,15 +112,6 @@ def is_pointer_pose(up):
     return up['index'] and not up['middle'] and not up['ring'] and not up['pinky']
 
 
-def is_ok_pose(up):
-    """Middle, ring and pinky extended — the hand shape of an OK sign.
-
-    A click-pinch curls these three, so this is what separates a pinch
-    meant as a click from one meant as an OK sign.
-    """
-    return bool(up) and up['middle'] and up['ring'] and up['pinky']
-
-
 def is_scroll_pose(up):
     """Index + middle extended (a V), ring/pinky curled. Thumb ignored."""
     return (up['index'] and up['middle']
@@ -223,16 +214,17 @@ class ActionRouter:
         self._scroll_gap = 0    # frames it has been missing mid-session
         self.is_dragging = False
 
-    def route(self, up, is_pinching, events, raw_index):
+    def route(self, up, is_pinching, events, raw_index, ok_showing=False):
         """up: fingers_up dict; events: gesture event strings this frame;
-        raw_index: (x, y) index tip in normalized camera coords."""
+        raw_index: (x, y) index tip in normalized camera coords;
+        ok_showing: the hand is holding a recognised OK sign, whose ring
+        is the same shape as a click but means something else."""
         actions = []
         pinch_started = 'pinch_start' in events
-        # A closed thumb-index ring only counts as pointing when the other
-        # fingers are curled; the same ring with them extended is an OK
-        # sign, which should neither click nor drag the cursor around. A
-        # drag already in progress still keeps the cursor.
-        pinch_pointing = (is_pinching or pinch_started) and not is_ok_pose(up)
+        # An OK sign should neither click nor drag the cursor around. A
+        # drag already in progress still keeps the cursor, so a stray
+        # reading can't strand a held button.
+        pinch_pointing = (is_pinching or pinch_started) and not ok_showing
         pinch_active = pinch_pointing or self.is_dragging
         scroll_pose = is_scroll_pose(up)
 
@@ -264,7 +256,7 @@ class ActionRouter:
 
         for event in events:
             if event == 'pinch_start' and not self.is_dragging:
-                if is_ok_pose(up):
+                if ok_showing:
                     continue  # an OK sign closes the same ring; not a click
                 self.is_dragging = True
                 actions.append(('press',))
@@ -335,10 +327,11 @@ class ControlSession:
         # turning off mid-drag must never leave the button held
         return [] if self.control_on else self._router.suspend()
 
-    def frame(self, up, is_pinching, events, raw_index):
+    def frame(self, up, is_pinching, events, raw_index, ok_showing=False):
         if not self.control_on:
             return []
-        return self._router.route(up, is_pinching, events, raw_index)
+        return self._router.route(up, is_pinching, events, raw_index,
+                                  ok_showing)
 
     def hand_lost(self):
         return self._router.suspend()

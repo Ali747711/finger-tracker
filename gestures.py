@@ -22,6 +22,13 @@ PINCH_RELEASE_FRAMES = 3
 OK_ON_RATIO = PINCH_ON_RATIO
 OK_OFF_RATIO = PINCH_OFF_RATIO
 OK_COOLDOWN_SEC = 1.5
+OK_FINGER_TIPS = (12, 16, 20)   # middle, ring, pinky
+# How far past its PIP joint a fingertip must reach, as a fraction of hand
+# size, to count as deliberately extended. `fingers_up` only asks whether
+# the tip is above the joint at all, which a merely relaxed finger clears
+# easily — and treating a relaxed pinch as an OK sign would stop it
+# clicking. A fully extended finger clears its joint by ~1.0 of hand size.
+OK_EXTENSION_MARGIN = 0.40
 
 SWIPE_WINDOW_SEC = 0.30     # look-back window for displacement
 SWIPE_MIN_DISTANCE = 0.18   # normalized-screen units the point must travel
@@ -111,13 +118,30 @@ class PinchDetector:
         self._need_open = True
 
 
+def fingers_clearly_extended(landmarks, tips=OK_FINGER_TIPS,
+                             margin_ratio=OK_EXTENSION_MARGIN):
+    """True when every named fingertip reaches well past its PIP joint.
+
+    Deliberately stricter than `fingers_up`: this has to tell a hand
+    holding an OK sign apart from a hand pinching to click with its other
+    fingers merely relaxed, and those look identical to a bare
+    tip-above-joint test.
+    """
+    scale = hand_scale(landmarks)
+    if scale < 1e-6:
+        return False
+    margin = margin_ratio * scale
+    return all(landmarks[tip][1] < landmarks[tip - 2][1] - margin
+               for tip in tips)
+
+
 class OkSignDetector:
     """Fires once when the hand shows an OK sign: thumb and index tips
     closed into a ring while the other three fingers stay extended.
 
     The ring is the same shape as a click-pinch, so those three extended
-    fingers are the only thing telling the two gestures apart — the
-    caller decides that part and passes it in as `fingers_extended`.
+    fingers are the only thing telling the two gestures apart — and they
+    have to be *clearly* extended, or ordinary pinches stop clicking.
 
     Latches like a trigger: holding the sign fires once, and the ring has
     to open (or the fingers curl) before it can fire again.
@@ -135,7 +159,7 @@ class OkSignDetector:
         self._quiet_until = None
         self.is_showing = False
 
-    def update(self, landmarks, fingers_extended, now):
+    def update(self, landmarks, now):
         """Returns 'ok_sign' once per showing, otherwise None."""
         if len(landmarks) != 21:
             raise ValueError(f'expected 21 landmarks, got {len(landmarks)}')
@@ -144,13 +168,14 @@ class OkSignDetector:
         if scale < 1e-6:
             return None
         ratio = distance(landmarks[4], landmarks[8]) / scale
+        extended = fingers_clearly_extended(landmarks)
 
         if self.is_showing:
-            if ratio > self._off or not fingers_extended:
+            if ratio > self._off or not extended:
                 self.is_showing = False
             return None
 
-        if not fingers_extended or ratio >= self._on:
+        if not extended or ratio >= self._on:
             return None
         if self._quiet_until is not None and now < self._quiet_until:
             return None

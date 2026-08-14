@@ -10,7 +10,7 @@ so the two failure modes it has — brief dropouts and duplicate labels —
 are both handled here rather than leaking into the camera loop.
 """
 
-from control import PalmGate, is_ok_pose, is_open_palm
+from control import PalmGate, is_open_palm
 from gestures import OkSignDetector, PinchDetector, SwipeDetector
 from hand_logic import MovementTracker, fingers_up
 
@@ -102,9 +102,9 @@ class HandTracker:
         if pinch_event:
             events.append(pinch_event)
 
-        # Same closed ring as a pinch; the three extended fingers are what
-        # make it an OK sign rather than a click.
-        ok_event = self.ok.update(points, is_ok_pose(self.fingers), now)
+        # Same closed ring as a pinch; the three clearly-extended fingers
+        # are what make it an OK sign rather than a click.
+        ok_event = self.ok.update(points, now)
         if ok_event:
             events.append(ok_event)
 

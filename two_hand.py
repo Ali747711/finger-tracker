@@ -35,7 +35,14 @@ class IndexTouchDetector:
         self._off = off_ratio
         self._cooldown = cooldown
         self._quiet_until = None
+        # Whether the fingertips are in contact right now. The caller uses
+        # this to hold off single-hand control, so it must never report a
+        # reading the camera can't currently see.
         self.is_touching = False
+        # Whether this touch has already fired. Kept separately, because it
+        # has to survive a frame where a hand isn't visible — otherwise one
+        # touch fires twice.
+        self._latched = False
 
     def update(self, hands, now):
         """hands: [(points, fingers_up), ...] for the hands seen now,
@@ -43,34 +50,40 @@ class IndexTouchDetector:
 
         Returns 'index_touch' once per touch, otherwise None.
         """
-        if len(hands) != 2:
-            # Can't measure a gap with one hand. Leave the latch alone so
-            # a dropped frame doesn't let the same touch fire twice.
+        if not self._measurable(hands):
+            self.is_touching = False
             return None
 
-        (a_points, a_up), (b_points, b_up) = hands
-        if not (a_up.get('index') and b_up.get('index')):
-            return None   # both index fingers must be extended
-
+        (a_points, _), (b_points, _) = hands
         scale = (hand_scale(a_points) + hand_scale(b_points)) / 2
         if scale < 1e-6:
+            self.is_touching = False
             return None
 
         ratio = distance(a_points[INDEX_TIP], b_points[INDEX_TIP]) / scale
-        if self.is_touching:
-            if ratio > self._off:
-                self.is_touching = False
-            return None
+        self.is_touching = ratio <= self._off
 
+        if self._latched:
+            if ratio > self._off:
+                self._latched = False   # separated: armed again
+            return None
         if ratio >= self._on:
             return None
         if self._quiet_until is not None and now < self._quiet_until:
             return None
 
-        self.is_touching = True
+        self._latched = True
         self._quiet_until = now + self._cooldown
         return 'index_touch'
+
+    @staticmethod
+    def _measurable(hands):
+        """A gap needs two hands with both index fingers extended."""
+        if len(hands) != 2:
+            return False
+        return all(up.get('index') for _points, up in hands)
 
     def reset(self):
         """Control turned off, or both hands lost."""
         self.is_touching = False
+        self._latched = False

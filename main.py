@@ -201,7 +201,7 @@ def main():
                 # only the controlling hand's gestures reach macOS
                 controller.execute(session.frame(
                     tracker.fingers, tracker.is_pinching,
-                    hand_events, raw_index))
+                    hand_events, raw_index, tracker.ok.is_showing))
 
             for label, event in events:
                 print(f'event: {label} {event}')
