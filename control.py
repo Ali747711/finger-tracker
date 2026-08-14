@@ -132,6 +132,11 @@ class PalmGate:
         self._held = self._held + 1 if is_open_palm(up) else 0
         return self._held >= self._frames
 
+    def reset(self):
+        """Call when the hand is lost, so a returning hand has to hold
+        the pose again rather than arming instantly."""
+        self._held = 0
+
 
 class ScrollTracker:
     """Converts fingertip motion into integer wheel steps.

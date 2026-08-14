@@ -1,9 +1,11 @@
-"""Finger movement tracker v0.3 — gestures + optional macOS control.
+"""Finger movement tracker v0.5 — two hands, optional macOS control.
 
-Mirror view with hand landmarks, finger states, pinch, and swipe events.
-Press `c` to toggle macOS control: index finger moves the cursor, pinch
-clicks/drags, open-palm flicks switch desktop spaces. Starts with
-control OFF. Press `q` (or close the window) to quit.
+Mirror view tracking up to two hands, each with independent gesture
+state (fingers, pinch, scroll, swipe). Press `c` to toggle macOS
+control, which the right hand drives when both are visible: index finger
+moves the cursor, pinch clicks/drags, index+middle scrolls, open-palm
+flicks switch desktop spaces. Starts with control OFF. Press `q` (or
+close the window) to quit; Esc kills control from anywhere.
 """
 
 import sys
@@ -13,9 +15,8 @@ import time
 import cv2
 import mediapipe as mp
 
-from control import (ActionRouter, ControlSession, CursorMapper, PalmGate)
-from gestures import PinchDetector, SwipeDetector
-from hand_logic import MovementTracker, fingers_up
+from control import ActionRouter, ControlSession, CursorMapper
+from hands import HandRegistry, assign_labels, pick_primary
 from mac_actions import (MacController, is_trusted, screen_size,
                          start_kill_listener)
 
@@ -27,9 +28,6 @@ IDLE_COLOR = (180, 180, 180)
 FLASH_COLOR = (60, 160, 255)
 FLASH_SEC = 0.8
 WINDOW_NAME = 'Finger Tracker'
-# MediaPipe tracking drops out for a frame or two routinely; only treat the
-# hand as lost (and reset gesture state) after this many missed frames.
-HAND_LOST_FRAMES = 3
 
 
 def open_camera(index=0):
@@ -64,15 +62,30 @@ def draw_flash(frame, text):
     cv2.putText(frame, text, org, cv2.FONT_HERSHEY_SIMPLEX, 1.6, FLASH_COLOR, 3)
 
 
-def process_hand(frame, results, tracker, pinch, swipe, palm, now, drawer):
-    """Analyze the detected hand.
+def read_hands(results):
+    """Pair up MediaPipe's landmark and handedness lists.
 
-    Returns (status_lines, events, fingers_up_dict, raw_index_pos) where
-    raw_index_pos is the index tip in unscaled 0..1 camera coords for
-    cursor mapping.
+    Returns [(label, score, landmarks)] with a unique label per hand.
+    The two lists are guarded against a length mismatch, which would
+    otherwise attribute one hand's gestures to the other.
     """
-    hand = results.multi_hand_landmarks[0]
-    handedness = results.multi_handedness[0].classification[0].label
+    landmarks = results.multi_hand_landmarks or []
+    handedness = results.multi_handedness or []
+    paired = min(len(landmarks), len(handedness))
+    candidates = [(handedness[i].classification[0].label,
+                   handedness[i].classification[0].score)
+                  for i in range(paired)]
+    labels = assign_labels(candidates)
+    return [(labels[i], candidates[i][1], landmarks[i])
+            for i in range(paired)]
+
+
+def process_hand(frame, hand, label, tracker, now, drawer):
+    """Advance one hand's gesture state and draw it.
+
+    Returns (status_line, events, raw_index_pos) where raw_index_pos is
+    the index tip in unscaled 0..1 camera coords for cursor mapping.
+    """
     drawer.draw_landmarks(frame, hand, mp.solutions.hands.HAND_CONNECTIONS)
 
     # MediaPipe normalizes x by frame width and y by height. Rescale x so
@@ -82,46 +95,27 @@ def process_hand(frame, results, tracker, pinch, swipe, palm, now, drawer):
     h, w = frame.shape[:2]
     aspect = w / h
     points = [(lm.x * aspect, lm.y) for lm in hand.landmark]
-    up = fingers_up(points, handedness)
-    up_names = [name for name, is_up in up.items() if is_up] or ['fist']
-    direction = tracker.update(*points[INDEX_TIP])
 
-    events = []
-    pinch_event = pinch.update(points)
-    if pinch_event:
-        events.append(pinch_event)
-    # Swipes are an open-palm gesture: feeding the detector during pointer,
-    # scroll or pinch poses would fire phantom desktop switches from fast
-    # hand moves and burn the cooldown a genuine flick then runs into.
-    if palm.update(up):
-        swipe_event = swipe.update(*points[INDEX_TIP], now)
-        if swipe_event:
-            events.append(swipe_event)
-    else:
-        swipe.reset()  # clears history, keeps any active cooldown
+    events = tracker.update(points, label, now)
+    draw_pinch_line(frame, hand, tracker.is_pinching)
 
-    draw_pinch_line(frame, hand, pinch.is_pinching)
-    status = [
-        f'{handedness} hand | fingers: {", ".join(up_names)}',
-        f'index finger: {direction}',
-        f'pinch: {"yes" if pinch.is_pinching else "no"}',
-    ]
+    up_names = [name for name, is_up in tracker.fingers.items() if is_up]
+    status = (f'{label}: {", ".join(up_names) or "fist"}'
+              f' | {tracker.direction}'
+              f'{" | PINCH" if tracker.is_pinching else ""}')
     raw_index = (hand.landmark[INDEX_TIP].x, hand.landmark[INDEX_TIP].y)
-    return status, events, up, raw_index
+    return status, events, raw_index
 
 
 def main():
     hands = mp.solutions.hands.Hands(
-        max_num_hands=1,
+        max_num_hands=2,
         model_complexity=0,  # lightest model — fine for an Intel CPU
         min_detection_confidence=0.7,
         min_tracking_confidence=0.5,
     )
     drawer = mp.solutions.drawing_utils
-    tracker = MovementTracker()
-    pinch = PinchDetector()
-    swipe = SwipeDetector()
-    palm = PalmGate()
+    registry = HandRegistry()
     session = ControlSession(ActionRouter(CursorMapper(*screen_size())))
     controller = MacController()
     kill = threading.Event()
@@ -129,8 +123,8 @@ def main():
 
     cap = open_camera()
     last_time = time.time()
-    flash = None  # (text, expires_at)
-    missed = 0    # consecutive frames without a hand detection
+    flash = None       # (text, expires_at)
+    controlling = None  # label of the hand currently driving the cursor
 
     print('Tracking… press q to quit, c to toggle control, Esc to kill control.')
     try:
@@ -156,31 +150,46 @@ def main():
             status = [
                 f'FPS: {fps:.0f}',
                 f'control: {"ON  (Esc kills)" if session.control_on else "OFF"}'
-                ' | c toggles',
+                f' | c toggles | driving: {controlling or "-"}',
             ]
 
-            events = []
-            if results.multi_hand_landmarks:
-                missed = 0
-                hand_status, events, up, raw_index = process_hand(
-                    frame, results, tracker, pinch, swipe, palm, now, drawer)
-                status.extend(hand_status)
-                controller.execute(
-                    session.frame(up, pinch.is_pinching, events, raw_index))
-            else:
-                missed += 1
-                if missed == HAND_LOST_FRAMES:
-                    if pinch.is_pinching:
-                        events.append('pinch_end')  # keep events paired
-                    tracker.reset()
-                    pinch.reset()
-                    swipe.reset()
-                    controller.execute(session.hand_lost())
+            events = []   # (label, event) for the log and the flash
+            frames = {}   # label -> (tracker, events, raw_index)
+
+            for label, _score, landmarks in read_hands(results):
+                tracker = registry.get(label)
+                line, hand_events, raw_index = process_hand(
+                    frame, landmarks, label, tracker, now, drawer)
+                frames[label] = (tracker, hand_events, raw_index)
+                events.extend((label, e) for e in hand_events)
+                status.append(line)
+
+            # A hand missing for a frame or two is still 'active', so a
+            # brief dropout can't hand control to the other hand.
+            for label, tracker in registry.sweep(list(frames)):
+                events.extend((label, e) for e in tracker.lost())
+
+            active = registry.active()
+            if not active:
                 status.append('no hand detected')
 
-            for event in events:
-                print(f'event: {event}')
-                flash = (event.replace('_', ' ').upper(), now + FLASH_SEC)
+            primary = pick_primary(active)
+            if primary != controlling:
+                # control changed hands (or ran out of hands): never leave
+                # a drag held by the hand that just left
+                controller.execute(session.hand_lost())
+                controlling = primary
+            if primary in frames:
+                tracker, hand_events, raw_index = frames[primary]
+                # only the controlling hand's gestures reach macOS
+                controller.execute(session.frame(
+                    tracker.fingers, tracker.is_pinching,
+                    hand_events, raw_index))
+
+            for label, event in events:
+                print(f'event: {label} {event}')
+                flash = (f'{label} {event.replace("_", " ")}'.upper(),
+                         now + FLASH_SEC)
 
             if flash and now < flash[1]:
                 draw_flash(frame, flash[0])
