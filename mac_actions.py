@@ -20,6 +20,11 @@ KEY_CONTROL = 59
 # The system tap that owns Mission Control shortcuts can miss a modifier
 # pressed in the same instant as the key, so hold it briefly.
 HOTKEY_HOLD_SEC = 0.02
+# A physically pressed Control key carries this device-dependent bit
+# alongside the generic Control mask. macOS hotkey matching looks for it,
+# so an event without it is delivered to apps as a plain Ctrl+key but is
+# never claimed as a system shortcut.
+NX_DEVICELCTLKEYMASK = 0x00000001
 
 
 def post_system_hotkey(keycode, hold=HOTKEY_HOLD_SEC):
@@ -33,7 +38,7 @@ def post_system_hotkey(keycode, hold=HOTKEY_HOLD_SEC):
     """
     import Quartz
 
-    flags = Quartz.kCGEventFlagMaskControl
+    flags = Quartz.kCGEventFlagMaskControl | NX_DEVICELCTLKEYMASK
 
     def post(code, down, event_flags):
         event = Quartz.CGEventCreateKeyboardEvent(None, code, down)

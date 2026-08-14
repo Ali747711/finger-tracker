@@ -1,0 +1,1285 @@
+- generic [ref=f6e2]:
+  - generic [ref=f6e3]:
+    - link "Skip to content" [ref=f6e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner [ref=f6e9]:
+      - heading "Navigation Menu" [level=2] [ref=f6e10]
+      - generic [ref=f6e11]:
+        - link "Homepage" [ref=f6e13] [cursor=pointer]:
+          - /url: /
+        - generic [ref=f6e16]:
+          - navigation "Global" [ref=f6e17]:
+            - list [ref=f6e18]:
+              - listitem [ref=f6e19]:
+                - button "Platform" [ref=f6e21] [cursor=pointer]
+              - listitem [ref=f6e24]:
+                - button "Solutions" [ref=f6e26] [cursor=pointer]
+              - listitem [ref=f6e29]:
+                - button "Resources" [ref=f6e31] [cursor=pointer]
+              - listitem [ref=f6e34]:
+                - button "Open Source" [ref=f6e36] [cursor=pointer]
+              - listitem [ref=f6e39]:
+                - button "Enterprise" [ref=f6e41] [cursor=pointer]
+              - listitem [ref=f6e44]:
+                - link "Pricing" [ref=f6e45] [cursor=pointer]:
+                  - /url: https://github.com/pricing
+          - generic [ref=f6e46]:
+            - button "Search or jump to, type / to search" [ref=f6e48] [cursor=pointer]:
+              - generic [ref=f6e51]:
+                - text: Type
+                - generic [ref=f6e52]: /
+                - text: to search
+            - link "Sign in" [ref=f6e54] [cursor=pointer]:
+              - /url: /login?return_to=https%3A%2F%2Fgithub.com%2FAli747711
+            - link "Sign up" [ref=f6e55] [cursor=pointer]:
+              - /url: /signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E&source=header
+            - button "Appearance settings" [ref=f6e56] [cursor=pointer]
+  - main [ref=f6e61]:
+    - generic [ref=f6e64]:
+      - generic [ref=f6e65]:
+        - generic:
+          - generic:
+            - generic:
+              - img "@Ali747711"
+            - generic:
+              - strong: Ali747711
+              - generic:
+                - generic:
+                  - link "Follow":
+                    - /url: /login?return_to=https%3A%2F%2Fgithub.com%2FAli747711
+      - navigation "User profile" [ref=f6e68]:
+        - link "Overview" [ref=f6e69] [cursor=pointer]:
+          - /url: /Ali747711
+        - link "Repositories 62" [ref=f6e72] [cursor=pointer]:
+          - /url: /Ali747711?tab=repositories
+          - text: Repositories
+          - generic "62" [ref=f6e75]
+        - link "Projects" [ref=f6e76] [cursor=pointer]:
+          - /url: /Ali747711?tab=projects
+        - link "Packages" [ref=f6e79] [cursor=pointer]:
+          - /url: /Ali747711?tab=packages
+        - link "Stars 23" [ref=f6e82] [cursor=pointer]:
+          - /url: /Ali747711?tab=stars
+          - text: Stars
+          - generic "23" [ref=f6e85]
+    - generic [ref=f6e87]:
+      - generic [ref=f6e89]:
+        - generic:
+          - generic:
+            - generic:
+              - img "@Ali747711"
+            - generic:
+              - generic:
+                - strong: Ali747711
+            - generic:
+              - generic:
+                - generic:
+                  - link "Follow":
+                    - /url: /login?return_to=https%3A%2F%2Fgithub.com%2FAli747711
+        - generic [ref=f6e90]:
+          - generic [ref=f6e91]:
+            - generic [ref=f6e92]:
+              - link [ref=f6e93] [cursor=pointer]:
+                - /url: https://avatars.githubusercontent.com/u/126062847?v=4
+                - img "View Ali747711's full-sized avatar" [ref=f6e94]
+              - generic [ref=f6e97]:
+                - img ":atom:" [ref=f6e100]
+                - generic: Need more credits
+            - heading "Nabiev Azamat Ali747711" [level=1] [ref=f6e102]:
+              - generic [ref=f6e103]: Nabiev Azamat
+              - generic [ref=f6e104]: Ali747711
+          - generic [ref=f6e105]:
+            - link "Follow" [ref=f6e112] [cursor=pointer]:
+              - /url: /login?return_to=https%3A%2F%2Fgithub.com%2FAli747711
+            - generic [ref=f6e113]:
+              - generic [ref=f6e114]: I don’t always push to GitHub, but when I do… it’s usually at 3AM. Expert at explaining to my future self “why I did this” in code comments.
+              - generic [ref=f6e117]:
+                - link "9 followers" [ref=f6e118] [cursor=pointer]:
+                  - /url: https://github.com/Ali747711?tab=followers
+                - text: ·
+                - link "31 following" [ref=f6e121] [cursor=pointer]:
+                  - /url: https://github.com/Ali747711?tab=following
+              - list [ref=f6e122]:
+                - 'listitem "Organization: Dong-A University" [ref=f6e123]':
+                  - generic [ref=f6e126]: Dong-A University
+                - 'listitem "Home location: Busan, South Korea" [ref=f6e128]':
+                  - generic [ref=f6e131]: Busan, South Korea
+                - listitem [ref=f6e132]:
+                  - link "https://ali-pro.vercel.app/" [ref=f6e135] [cursor=pointer]:
+                    - /url: https://ali-pro.vercel.app/
+                - listitem [ref=f6e136]:
+                  - img "LinkedIn" [ref=f6e137]
+                  - link "in/nabiev-azamat-292903259" [ref=f6e140] [cursor=pointer]:
+                    - /url: https://linkedin.com/in/nabiev-azamat-292903259
+                - listitem [ref=f6e141]:
+                  - link "https://t.me/nabiev0727" [ref=f6e144] [cursor=pointer]:
+                    - /url: https://t.me/nabiev0727
+          - generic [ref=f6e145]:
+            - heading [level=2] [ref=f6e146]:
+              - link "Achievements" [ref=f6e147] [cursor=pointer]:
+                - /url: /Ali747711?tab=achievements
+            - link [ref=f6e149] [cursor=pointer]:
+              - /url: /Ali747711?achievement=yolo&tab=achievements
+              - 'img "Achievement: YOLO" [ref=f6e150]'
+          - button "Block or report user" [ref=f6e152] [cursor=pointer]
+      - generic [ref=f6e157]:
+        - generic [ref=f6e159]:
+          - generic [ref=f6e161]:
+            - link "Ali747711" [ref=f6e162] [cursor=pointer]:
+              - /url: /Ali747711/Ali747711
+            - generic [ref=f6e163]: /
+            - text: README.md
+          - article [ref=f6e164]:
+            - generic [ref=f6e165]:
+              - link [ref=f6e166] [cursor=pointer]:
+                - /url: https://raw.githubusercontent.com/Ali747711/Ali747711/master/assets/banner.svg?v=1
+                - img "Azamat (Ali) Nabiev — Full-Stack Developer / AI Engineer / Seoul, South Korea" [ref=f6e167]
+              - link [ref=f6e168] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/801459d34449d3fe643a479d5102efec6006d45c2da4005228cbea90d60eaaf8/68747470733a2f2f726561646d652d747970696e672d7376672e64656d6f6c61622e636f6d3f666f6e743d466972612b436f6465267765696768743d3630302673697a653d3230266475726174696f6e3d333230302670617573653d39303026636f6c6f723d413345363335266261636b67726f756e643d30413046304230302663656e7465723d74727565267643656e7465723d747275652677696474683d383230266865696768743d313130266c696e65733d2532342b77686f616d692b2d2533452b417a616d61742b253232416c692532322b4e61626965763b2532342b726f6c652b2d2533452b46756c6c2d537461636b2b446576656c6f7065722b2532462b41492b456e67696e6565722b2537432b342b7972733b2532342b737461636b2b2d2533452b547970655363726970742b2537432b4e6573744a532b2537432b4e6578742e6a732b2537432b537072696e672b426f6f743b2532342b6275696c64696e672b2d2533452b766563746f722b7365617263682b2532422b73747265616d696e672b4c4c4d2b617373697374616e74733b2532342b7374617475732b2d2533452b6f70656e2b746f2b726f6c65732b696e2b53656f756c2532432b536f7574682b4b6f726561
+                - img "Terminal typing intro" [ref=f6e169]
+              - link [ref=f6e170] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/c49ac6313b9bbbc0c854c8823197315b04613475fea7938f999d2e3f15832ec6/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4242412d4133453633353f7374796c653d666c61742d737175617265266c6f676f3d626f6f6b737461636b266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+                - img "Degree" [ref=f6e171]
+              - link [ref=f6e172] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/68e1ce55d2cba1634d5e4727f29021e9b8fa8f22f762f17eeae1cbeae4007ef5/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446f6e672d2d415f556e69766572736974792d427573616e2c5f4b522d3135383033443f7374796c653d666c61742d737175617265266c6f676f3d676f6f676c657363686f6c6172266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+                - img "University" [ref=f6e173]
+              - link [ref=f6e174] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/a2e6c6854958000f49da5ea40cb928f2c26a87bb71c57a9158fbf54f63ed3ac9/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f42617365645f696e2d53656f756c2c5f536f7574685f4b6f7265612d3135383033443f7374796c653d666c61742d737175617265266c6f676f3d676f6f676c656d617073266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+                - img "Location" [ref=f6e175]
+              - link [ref=f6e176] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/2e35924adff8e032f94d7796a319e1a76fd57159eb90639c7ee5d3583e866b1e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f566973612d442d2d31305f4a6f625f5365656b65722d3135383033443f7374796c653d666c61742d737175617265266c6f676f3d70726f746f6e6472697665266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+                - img "Visa" [ref=f6e177]
+              - paragraph [ref=f6e178]:
+                - link [ref=f6e179] [cursor=pointer]:
+                  - /url: https://ali-pro.vercel.app/
+                  - img "Portfolio" [ref=f6e180]
+                - link [ref=f6e181] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/in/nabiev-azamat-292903259/
+                  - img "LinkedIn" [ref=f6e182]
+                - link [ref=f6e183] [cursor=pointer]:
+                  - /url: mailto:alexnabiyev5@gmail.com
+                  - img "Email" [ref=f6e184]
+                - link [ref=f6e185] [cursor=pointer]:
+                  - /url: https://github.com/Ali747711
+                  - img "GitHub" [ref=f6e186]
+              - link [ref=f6e187] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/ee5b90ed56cc07012a8a209f3d57956cea701daa1ac918ae7613e066a792bb9d/68747470733a2f2f6b6f6d617265762e636f6d2f67687076632f3f757365726e616d653d416c69373437373131266c6162656c3d50524f46494c452b564945575326636f6c6f723d413345363335267374796c653d666c61742d737175617265
+                - img "Profile views" [ref=f6e188]
+              - link [ref=f6e189] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/ef69576a1952230f35155059220f4a5b8da9a9dd9c0b837423174ede860aa4ef/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f666f6c6c6f776572732f416c693734373731313f6c6162656c3d464f4c4c4f57455253267374796c653d666c61742d73717561726526636f6c6f723d413345363335266c6162656c436f6c6f723d313231413134266c6f676f3d676974687562266c6f676f436f6c6f723d413345363335
+                - img "Followers" [ref=f6e190]
+              - link [ref=f6e191] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/2cdfcacf2264f75350b7a0258deae12fa2a85b5f4f82d461d4158602e6154b43/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f73746172732f416c693734373731313f6c6162656c3d544f54414c2b5354415253267374796c653d666c61742d73717561726526636f6c6f723d413345363335266c6162656c436f6c6f723d313231413134266c6f676f3d676974687562266c6f676f436f6c6f723d413345363335
+                - img "Stars" [ref=f6e192]
+            - paragraph [ref=f6e193]:
+              - link [ref=f6e194] [cursor=pointer]:
+                - /url: https://raw.githubusercontent.com/Ali747711/Ali747711/master/assets/h/about.svg?v=1
+                - img "about.md" [ref=f6e195]
+            - paragraph [ref=f6e196]: I build full-stack products and then put real AI inside them — semantic and vector search, streaming assistants grounded in live application data, and LLM endpoints with hard cost guardrails that degrade gracefully instead of falling over. Four years across e-commerce, healthcare, real estate, retail inventory and consulting SaaS, on a TypeScript / NestJS / Next.js core with Java Spring Boot behind it.
+            - paragraph [ref=f6e197]: "I own things end to end: schema, API, UI, Docker image, Nginx config, and the deploy that puts it in front of users."
+            - generic [ref=f6e198]:
+              - generic [ref=f6e199]:
+                - text: ROLE=
+                - generic [ref=f6e200]: "\"Full-Stack Developer / AI Engineer\""
+                - text: EXP=
+                - generic [ref=f6e201]: "\"~4 years (since May 2022)\""
+                - text: DOMAIN=
+                - generic [ref=f6e202]: "\"E-commerce · Healthcare AI · Real Estate · Retail Inventory · Consulting SaaS\""
+                - text: STACK=
+                - generic [ref=f6e203]: "\"TypeScript · Next.js · NestJS · Express · Spring Boot · GraphQL · MongoDB · PostgreSQL\""
+                - text: AI=
+                - generic [ref=f6e204]: "\"OpenAI · Claude (Skills/MCP/Agents) · Gemini · LangChain · Groq · Ollama · vector search\""
+                - text: OPEN_TO=
+                - generic [ref=f6e205]: "\"Full-time in South Korea — onsite / hybrid / remote · freelance contracts\""
+              - button "Copy code to clipboard" [ref=f6e207] [cursor=pointer]
+            - paragraph [ref=f6e211]:
+              - link [ref=f6e212] [cursor=pointer]:
+                - /url: https://raw.githubusercontent.com/Ali747711/Ali747711/master/assets/h/stack.svg?v=1
+                - img "stack.json" [ref=f6e213]
+            - generic [ref=f6e214]:
+              - paragraph [ref=f6e215]:
+                - strong [ref=f6e216]: Languages
+              - link [ref=f6e217] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/631f1d7f3d87dd23057dbc1dc3a9e325c8bffa34b7f57c8db4fd25dfa8cedec2/68747470733a2f2f736b696c6c69636f6e732e6465762f69636f6e733f693d74732c6a732c6a6176612c70792c62617368267468656d653d6461726b267065726c696e653d37
+                - img "Languages" [ref=f6e218]
+              - paragraph [ref=f6e219]:
+                - strong [ref=f6e220]: Frontend
+              - link [ref=f6e221] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/406bdcd49cd23aef831b95d79b02e73ec5961d7f59c8a3a4856834974b77262d/68747470733a2f2f736b696c6c69636f6e732e6465762f69636f6e733f693d72656163742c6e6578746a732c7461696c77696e642c766974652c68746d6c2c637373267468656d653d6461726b267065726c696e653d37
+                - img "Frontend" [ref=f6e222]
+              - paragraph [ref=f6e223]:
+                - strong [ref=f6e224]: Backend & API
+              - link [ref=f6e225] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/cac443cd47237dc4a905a3772d7cf5b81eb654265fc71a8d2d028fe724dd2acb/68747470733a2f2f736b696c6c69636f6e732e6465762f69636f6e733f693d6e6573746a732c6e6f64656a732c657870726573732c737072696e672c6772617068716c2c61706f6c6c6f2c707269736d61267468656d653d6461726b267065726c696e653d37
+                - img "Backend" [ref=f6e226]
+              - paragraph [ref=f6e227]:
+                - strong [ref=f6e228]: Databases
+              - link [ref=f6e229] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/efd68fdb648fc3f8eb0bc9e5b412d27019a3571cfe8e0c515e3745f9a877c89f/68747470733a2f2f736b696c6c69636f6e732e6465762f69636f6e733f693d6d6f6e676f64622c706f7374677265732c6d7973716c2c72656469732c6669726562617365267468656d653d6461726b267065726c696e653d37
+                - img "Databases" [ref=f6e230]
+              - paragraph [ref=f6e231]:
+                - strong [ref=f6e232]: Cloud & DevOps
+              - link [ref=f6e233] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/ca1b196477456ca09e88ea37fbcc49cd758d5192ad6aa77982ceca32e2444dbc/68747470733a2f2f736b696c6c69636f6e732e6465762f69636f6e733f693d646f636b65722c676974687562616374696f6e732c6e67696e782c6177732c76657263656c2c6c696e75782c676974267468656d653d6461726b267065726c696e653d37
+                - img "Cloud and DevOps" [ref=f6e234]
+              - paragraph [ref=f6e235]:
+                - strong [ref=f6e236]: CV & Tooling
+              - link [ref=f6e237] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/0552de078995efbe5eed95b8bc938ffed7c5e4948a4864eb658fa63a951e4135/68747470733a2f2f736b696c6c69636f6e732e6465762f69636f6e733f693d6f70656e63762c706f73746d616e2c6669676d612c6e6f74696f6e2c7673636f64652c766974657374267468656d653d6461726b267065726c696e653d37
+                - img "Tooling" [ref=f6e238]
+            - paragraph [ref=f6e239]:
+              - link [ref=f6e240] [cursor=pointer]:
+                - /url: https://raw.githubusercontent.com/Ali747711/Ali747711/master/assets/h/specialty.svg?v=1
+                - img "specialty.ts" [ref=f6e241]
+            - generic [ref=f6e242]:
+              - link [ref=f6e243] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/2ac45627d60e2b6b4532f333d53de884586fb9787aa988d479098087fa1fc3bb/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4f70656e41492d4133453633353f7374796c653d666c61742d737175617265266c6f676f3d6f70656e6169266c6f676f436f6c6f723d304130463042266c6162656c436f6c6f723d313231413134
+                - img "OpenAI" [ref=f6e244]
+              - link [ref=f6e245] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/ca03cdabfb1fb658b189ae454df99c77702731babde185d8bb36cbb5a14e2549/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f436c617564655fc2b75f536b696c6c735fc2b75f4d43502d4133453633353f7374796c653d666c61742d737175617265266c6f676f3d616e7468726f706963266c6f676f436f6c6f723d304130463042266c6162656c436f6c6f723d313231413134
+                - img "Claude" [ref=f6e246]
+              - link [ref=f6e247] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/3888ad1684becb4a42696d9b5c4a3194cfac5ff7d08d00446f4c90d4b625343f/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f47656d696e692d4133453633353f7374796c653d666c61742d737175617265266c6f676f3d676f6f676c6567656d696e69266c6f676f436f6c6f723d304130463042266c6162656c436f6c6f723d313231413134
+                - img "Gemini" [ref=f6e248]
+              - link [ref=f6e249] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/a78b68432ce9c37f4d6be3ce05f23630558b4ae9c6a5c920c4d96d95ee23d47a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c616e67436861696e2d4133453633353f7374796c653d666c61742d737175617265266c6f676f3d6c616e67636861696e266c6f676f436f6c6f723d304130463042266c6162656c436f6c6f723d313231413134
+                - img "LangChain" [ref=f6e250]
+              - link [ref=f6e251] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/758502e3fc9054202096262a9e7a1290b63fb72d007cd2a70ac379fdab7b7e1a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f47726f712d4133453633353f7374796c653d666c61742d737175617265266c6f676f3d67726f71266c6f676f436f6c6f723d304130463042266c6162656c436f6c6f723d313231413134
+                - img "Groq" [ref=f6e252]
+              - link [ref=f6e253] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/39c65c468e872b9b7f113c98d75d080f3d3f1b361c2046f0ce57afe5f3a88046/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4f6c6c616d612d4133453633353f7374796c653d666c61742d737175617265266c6f676f3d6f6c6c616d61266c6f676f436f6c6f723d304130463042266c6162656c436f6c6f723d313231413134
+                - img "Ollama" [ref=f6e254]
+              - link [ref=f6e255] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/3b0215bb7def5a84941473041482a87c60a095b5d371446ef97952d1fc9fa980/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f566563746f725f5365617263682d3135383033443f7374796c653d666c61742d737175617265266c6f676f3d6d6f6e676f6462266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+                - img "Vector search" [ref=f6e256]
+              - link [ref=f6e257] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/44fd824a7e82b99ba1c14e537b9fbfd4f94462ff900b870be6b36cdb309ddadf/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5353455f53747265616d696e672d3135383033443f7374796c653d666c61742d737175617265266c6f676f3d7365727665726661756c74266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+                - img "Streaming assistants" [ref=f6e258]
+              - link [ref=f6e259] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/e01194fe8f096c7b701027b8852faee4200db7560d12f1a2c99bfb378fa30980/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f436f73745f47756172647261696c732d3135383033443f7374796c653d666c61742d737175617265266c6f676f3d75707374617368266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+                - img "Cost guardrails" [ref=f6e260]
+              - link [ref=f6e261] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/4b113b52fc16f952133918821d7952007c594a8261787464d1676a3e044b8396/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5265616c74696d652d3135383033443f7374796c653d666c61742d737175617265266c6f676f3d736f636b6574646f74696f266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+                - img "Realtime" [ref=f6e262]
+              - link [ref=f6e263] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/30a3acf3f707e88045e2941e608129ea433e1eca064aff8251a711f076a459fe/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6e386e2d3135383033443f7374796c653d666c61742d737175617265266c6f676f3d6e386e266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+                - img "n8n" [ref=f6e264]
+              - link [ref=f6e265] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/7bad82a53b779c344b52f54fbf5605b9cac7d7c89b6dad27888c1e97f829b912/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5374726970652d3132314131343f7374796c653d666c61742d737175617265266c6f676f3d737472697065266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+                - img "Stripe" [ref=f6e266]
+              - link [ref=f6e267] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/ab8ad2c7f6b0a2ee0bbbd9cf05774dc9777588b5423b7f24747d575642e5a299/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5a6f642d3132314131343f7374796c653d666c61742d737175617265266c6f676f3d7a6f64266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+                - img "Zod" [ref=f6e268]
+              - link [ref=f6e269] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/364211a94acdec4fd73416ba426df33c070c9d41037cf16f2bae9b754683b48c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f436c6f7564696e6172792d3132314131343f7374796c653d666c61742d737175617265266c6f676f3d636c6f7564696e617279266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+                - img "Cloudinary" [ref=f6e270]
+              - link [ref=f6e271] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/e7ecf077689f6ab0455ebee9ef15aafc070eabb8e212fe7d5588742c7a4c95c1/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5075707065746565722d3132314131343f7374796c653d666c61742d737175617265266c6f676f3d707570706574656572266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+                - img "Puppeteer" [ref=f6e272]
+              - link [ref=f6e273] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/47c36a5c5bcada9102d0fed77f7dceb5fbccc057ecd1de5d449f7a2c6cb09059/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4e6574776f726b5f53656375726974792d3132314131343f7374796c653d666c61742d737175617265266c6f676f3d7472796861636b6d65266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+                - img "Security" [ref=f6e274]
+            - paragraph [ref=f6e275]:
+              - link [ref=f6e276] [cursor=pointer]:
+                - /url: https://raw.githubusercontent.com/Ali747711/Ali747711/master/assets/h/expertise.svg?v=1
+                - img "expertise.tsv" [ref=f6e277]
+            - table [ref=f6e279]:
+              - rowgroup [ref=f6e280]:
+                - row [ref=f6e281]:
+                  - columnheader "Domain" [ref=f6e282]
+                  - columnheader "Proficiency" [ref=f6e283]
+                  - columnheader "Details" [ref=f6e284]
+              - rowgroup [ref=f6e285]:
+                - row [ref=f6e286]:
+                  - cell [ref=f6e287]:
+                    - strong [ref=f6e288]: Backend & API architecture
+                  - cell [ref=f6e289]:
+                    - link [ref=f6e290] [cursor=pointer]:
+                      - /url: https://camo.githubusercontent.com/b537f9534cf24b1d0dd0862b31d637b43422eb821559581af8f834205cf079fe/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f416476616e6365642d39302532352d4133453633353f7374796c653d666c61742d737175617265266c6162656c436f6c6f723d313231413134
+                      - img "90 percent" [ref=f6e291]
+                  - cell "NestJS + Apollo GraphQL code-first, Express 5, Spring Boot. 40+ REST endpoints on one platform, 32 GraphQL operations across 11 modules on another. JWT with refresh-token rotation, up to 4-level RBAC." [ref=f6e292]
+                - row [ref=f6e293]:
+                  - cell [ref=f6e294]:
+                    - strong [ref=f6e295]: AI product engineering
+                  - cell [ref=f6e296]:
+                    - link [ref=f6e297] [cursor=pointer]:
+                      - /url: https://camo.githubusercontent.com/9782643b5099e722ed48e5a2acf56aef1bf6166ae112f78ca42527503f8d636a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f416476616e6365642d38352532352d4133453633353f7374796c653d666c61742d737175617265266c6162656c436f6c6f723d313231413134
+                      - img "85 percent" [ref=f6e298]
+                  - cell "MongoDB Atlas vector search, SSE streaming assistants with tool calling, multi-model fallback chains across OpenAI / Gemini / Groq / Ollama, Redis-tracked daily spend caps." [ref=f6e299]
+                - row [ref=f6e300]:
+                  - cell [ref=f6e301]:
+                    - strong [ref=f6e302]: Frontend & product UI
+                  - cell [ref=f6e303]:
+                    - link [ref=f6e304] [cursor=pointer]:
+                      - /url: https://camo.githubusercontent.com/b537f9534cf24b1d0dd0862b31d637b43422eb821559581af8f834205cf079fe/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f416476616e6365642d39302532352d4133453633353f7374796c653d666c61742d737175617265266c6162656c436f6c6f723d313231413134
+                      - img "90 percent" [ref=f6e305]
+                  - cell "React 19, Next.js App Router, Tailwind v4, shadcn/ui, Framer Motion. Role-based dashboards at 15+ pages; 40% page-load reduction via SSR optimization." [ref=f6e306]
+                - row [ref=f6e307]:
+                  - cell [ref=f6e308]:
+                    - strong [ref=f6e309]: Data modelling & query perf
+                  - cell [ref=f6e310]:
+                    - link [ref=f6e311] [cursor=pointer]:
+                      - /url: https://camo.githubusercontent.com/7a1ae507bcea2a50a53b8997c734eaf5108a6eb57053941b5e7096bb0dffec9d/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f416476616e6365642d38302532352d4133453633353f7374796c653d666c61742d737175617265266c6162656c436f6c6f723d313231413134
+                      - img "80 percent" [ref=f6e312]
+                  - cell [ref=f6e313]:
+                    - text: MongoDB compound indexes and aggregation pipelines (60% query-time cut),
+                    - code [ref=f6e314]: $facet
+                    - text: pagination, PostgreSQL, MySQL/MariaDB, Prisma / TypeORM / Mongoose.
+                - row [ref=f6e315]:
+                  - cell [ref=f6e316]:
+                    - strong [ref=f6e317]: DevOps & deployment
+                  - cell [ref=f6e318]:
+                    - link [ref=f6e319] [cursor=pointer]:
+                      - /url: https://camo.githubusercontent.com/1696cb32e5a9c995c3cbe9e0d6b32d6bd20166c8ff7080b0df72e483f3eb547c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f50726f66696369656e742d37352532352d3135383033443f7374796c653d666c61742d737175617265266c6162656c436f6c6f723d313231413134
+                      - img "75 percent" [ref=f6e320]
+                  - cell "Docker multi-stage builds, Nginx reverse proxy, PM2 zero-downtime releases, GitHub Actions, AWS EC2/S3 with automated backups, Vercel and Render." [ref=f6e321]
+                - row [ref=f6e322]:
+                  - cell [ref=f6e323]:
+                    - strong [ref=f6e324]: Realtime systems
+                  - cell [ref=f6e325]:
+                    - link [ref=f6e326] [cursor=pointer]:
+                      - /url: https://camo.githubusercontent.com/1696cb32e5a9c995c3cbe9e0d6b32d6bd20166c8ff7080b0df72e483f3eb547c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f50726f66696369656e742d37352532352d3135383033443f7374796c653d666c61742d737175617265266c6162656c436f6c6f723d313231413134
+                      - img "75 percent" [ref=f6e327]
+                  - cell "Socket.io notifications and messaging with read receipts and typing indicators, raw WebSocket gateways, Twilio DataTrack control channels." [ref=f6e328]
+            - paragraph [ref=f6e329]:
+              - link [ref=f6e330] [cursor=pointer]:
+                - /url: https://raw.githubusercontent.com/Ali747711/Ali747711/master/assets/h/projects.svg?v=1
+                - img "projects/" [ref=f6e331]
+            - group [ref=f6e332]:
+              - generic "Shopy — AI e-commerce with semantic search and a streaming shopping assistant" [ref=f6e333] [cursor=pointer]
+              - paragraph [ref=f6e334]: Semantic product discovery over a 560-product catalog, plus a multi-turn assistant that streams answers grounded in live catalog data instead of hallucinating inventory.
+              - table [ref=f6e336]:
+                - rowgroup [ref=f6e337]:
+                  - row [ref=f6e338]:
+                    - columnheader [ref=f6e339]
+                    - columnheader [ref=f6e340]
+                - rowgroup [ref=f6e341]:
+                  - row [ref=f6e342]:
+                    - cell [ref=f6e343]:
+                      - strong [ref=f6e344]: Stack
+                    - cell "Next.js 16 · Express 5 · MongoDB Atlas vector search · OpenAI gpt-4o · Stripe · Upstash Redis" [ref=f6e345]
+                  - row [ref=f6e346]:
+                    - cell [ref=f6e347]:
+                      - strong [ref=f6e348]: Scale
+                    - cell "560-product catalog indexed for vector search; multi-turn conversation state" [ref=f6e349]
+                  - row [ref=f6e350]:
+                    - cell [ref=f6e351]:
+                      - strong [ref=f6e352]: Impact
+                    - cell "Vector search pipeline, SSE streaming assistant with tool calling, recommendation fallback chain, Redis-tracked daily AI budget cap so spend degrades gracefully instead of breaking" [ref=f6e353]
+                  - row [ref=f6e354]:
+                    - cell [ref=f6e355]:
+                      - strong [ref=f6e356]: Role
+                    - cell "Sole developer" [ref=f6e357]
+            - group [ref=f6e358]:
+              - generic "Livit Platform — real estate marketplace on code-first GraphQL" [ref=f6e359] [cursor=pointer]
+            - group [ref=f6e360]:
+              - generic "TwilioMeet — privacy-first video interview platform" [ref=f6e361] [cursor=pointer]
+            - group [ref=f6e362]:
+              - generic "JQ-Auto (UpCar) — inspection sheets and multi-page PDF generation for parts exporters" [ref=f6e363] [cursor=pointer]
+            - group [ref=f6e364]:
+              - generic "Avicenna — multilingual AI symptom analysis for foreigners in Korea" [ref=f6e365] [cursor=pointer]
+            - group [ref=f6e366]:
+              - generic "AI Customer Support Automation — ticket triage and routing" [ref=f6e367] [cursor=pointer]
+            - paragraph [ref=f6e368]:
+              - link [ref=f6e369] [cursor=pointer]:
+                - /url: https://raw.githubusercontent.com/Ali747711/Ali747711/master/assets/h/experience.svg?v=1
+                - img "experience.log" [ref=f6e370]
+            - generic [ref=f6e371]:
+              - heading [level=3] [ref=f6e372]:
+                - code [ref=f6e373]: 2024-01 → 2025-12
+                - text: ·
+                - strong [ref=f6e374]: Silk Road Professionals
+                - text: — Full-Stack Developer
+                - emphasis [ref=f6e375]: (Remote)
+              - 'link "Permalink: 2024-01 → 2025-12 · Silk Road Professionals — Full-Stack Developer (Remote)" [ref=f6e376] [cursor=pointer]':
+                - /url: "#2024-01--2025-12--silk-road-professionals--full-stack-developer-remote"
+            - list [ref=f6e379]:
+              - listitem [ref=f6e380]:
+                - text: Built a client management platform serving consulting clients across
+                - strong [ref=f6e381]: 4 countries
+              - listitem [ref=f6e382]:
+                - text: Shipped the Next.js / TypeScript dashboard —
+                - strong [ref=f6e383]: 15+ pages
+                - text: with role-based views
+              - listitem [ref=f6e384]:
+                - text: Built the NestJS + PostgreSQL backend behind it —
+                - strong [ref=f6e385]: 40+ REST endpoints
+              - listitem [ref=f6e386]:
+                - text: Implemented Socket.io real-time notifications and messaging with read receipts and typing indicators, secured by JWT + refresh-token rotation and
+                - strong [ref=f6e387]: 4-level RBAC
+              - listitem [ref=f6e388]:
+                - text: Owned deployment end to end — Docker multi-stage builds, Nginx reverse proxy, PM2 zero-downtime releases — and cut page load time
+                - strong [ref=f6e389]: 40%
+                - text: via Next.js SSR optimization
+            - subscript [ref=f6e390]:
+              - link [ref=f6e391] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/ad30d65b5b03ed71485d65dd3910df58549636f0c0a46783541242087395423c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4e6578742e6a732d3132314131343f7374796c653d666c61742d737175617265266c6f676f3d6e657874646f746a73266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+              - link [ref=f6e393] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/ac4546be5708d27840378fb329cf2d671b7f135e1bc666ea0f07d131cf591e4f/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4e6573744a532d3132314131343f7374796c653d666c61742d737175617265266c6f676f3d6e6573746a73266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+              - link [ref=f6e395] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/f983f1f8470deba585f7a52ec8225c05b35a2a7cb488b65dbb7fc256b8d78ff8/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f506f737467726553514c2d3132314131343f7374796c653d666c61742d737175617265266c6f676f3d706f737467726573716c266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+              - link [ref=f6e397] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/169e491ad2430c065db061cd00a72d04c4b214c5ddd4c06dd141dce0a26507d5/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f536f636b65742e696f2d3132314131343f7374796c653d666c61742d737175617265266c6f676f3d736f636b6574646f74696f266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+              - link [ref=f6e399] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/db9d715d26f92aeddd334feb51a978fd827dcb3bd4d3fb2eec0adb7919b3991c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446f636b65722d3132314131343f7374796c653d666c61742d737175617265266c6f676f3d646f636b6572266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+              - link [ref=f6e401] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/62d5b9f21c145db1820d9c4cc20c45dc974ad0e2027a8653c14b6daca5f12edd/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4e67696e782d3132314131343f7374796c653d666c61742d737175617265266c6f676f3d6e67696e78266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+              - link [ref=f6e403] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/e586438a3a508a116ab21a5af93cd7b32e5a84513fd57b46614b1b2e20ec5b9b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f504d322d3132314131343f7374796c653d666c61742d737175617265266c6f676f3d706d32266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+            - generic [ref=f6e405]:
+              - heading [level=3] [ref=f6e406]:
+                - code [ref=f6e407]: 2022-05 → 2023-11
+                - text: ·
+                - strong [ref=f6e408]: ISHONCH Electronics Retail
+                - text: — Backend Developer
+                - emphasis [ref=f6e409]: (Remote)
+              - 'link "Permalink: 2022-05 → 2023-11 · ISHONCH Electronics Retail — Backend Developer (Remote)" [ref=f6e410] [cursor=pointer]':
+                - /url: "#2022-05--2023-11--ishonch-electronics-retail--backend-developer-remote"
+            - list [ref=f6e413]:
+              - listitem [ref=f6e414]:
+                - text: Built a Java / Spring Boot product catalog and inventory API —
+                - strong [ref=f6e415]: 30+ endpoints
+                - text: for a multi-store retailer
+              - listitem [ref=f6e416]:
+                - text: Modelled and served
+                - strong [ref=f6e417]: 2,000+ SKUs
+                - text: across multiple store locations
+              - listitem [ref=f6e418]:
+                - text: Cut query time
+                - strong [ref=f6e419]: 60%
+                - text: with MongoDB compound indexes and aggregation pipelines
+              - listitem [ref=f6e420]: Built multi-store inventory sync with conflict resolution and audit logging
+              - listitem [ref=f6e421]:
+                - text: Set up Spring Security with
+                - strong [ref=f6e422]: 3-level RBAC
+                - text: ", AWS EC2/S3 infrastructure with automated backups, and Swagger/OpenAPI docs for the frontend team"
+            - subscript [ref=f6e423]:
+              - link [ref=f6e424] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/f2d9428c69982b37207ec1378f92cb3fbdb100a94d6fc7d40b6d71b807c41ca4/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4a6176612d3132314131343f7374796c653d666c61742d737175617265266c6f676f3d6f70656e6a646b266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+              - link [ref=f6e426] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/cba04ee34dcfa73a5bdab96a91e3f379b5a2f551035114536ef59b83027ee08a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f537072696e675f426f6f742d3132314131343f7374796c653d666c61742d737175617265266c6f676f3d737072696e67626f6f74266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+              - link [ref=f6e428] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/45600b4bb18399e68f43a5d77d9547c9b50ab94c33641ad14ceccbfe15b4f450/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4d6f6e676f44422d3132314131343f7374796c653d666c61742d737175617265266c6f676f3d6d6f6e676f6462266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+              - link [ref=f6e430] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/cd7620336cf37253f2221fef065c9b39f74ef16768f0add8e0ac93497df4bc2e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f537072696e675f53656375726974792d3132314131343f7374796c653d666c61742d737175617265266c6f676f3d737072696e677365637572697479266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+              - link [ref=f6e432] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/3ac92abb567999a8a72cf34efa49ac0085a28ab56a97195eef5608c9d64e9371/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4157535f4543325fc2b75f53332d3132314131343f7374796c653d666c61742d737175617265266c6f676f3d616d617a6f6e7765627365727669636573266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+              - link [ref=f6e434] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/9fe1d017c4a1543b4f273c5ce6752092f087a07528e07e4b6f69db83899678a9/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f537761676765722d3132314131343f7374796c653d666c61742d737175617265266c6f676f3d73776167676572266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+            - paragraph [ref=f6e436]:
+              - link [ref=f6e437] [cursor=pointer]:
+                - /url: https://raw.githubusercontent.com/Ali747711/Ali747711/master/assets/h/wins.svg?v=1
+                - img "achievements.md" [ref=f6e438]
+            - table [ref=f6e441]:
+              - rowgroup [ref=f6e442]:
+                - row [ref=f6e443]:
+                  - columnheader "Result" [ref=f6e444]
+                  - columnheader "Where" [ref=f6e445]
+                  - columnheader "How" [ref=f6e446]
+              - rowgroup [ref=f6e447]:
+                - row [ref=f6e448]:
+                  - cell [ref=f6e449]:
+                    - strong [ref=f6e450]: 60%
+                    - text: faster queries
+                  - cell "ISHONCH Electronics" [ref=f6e451]
+                  - cell "MongoDB compound indexes + aggregation pipelines" [ref=f6e452]
+                - row [ref=f6e453]:
+                  - cell [ref=f6e454]:
+                    - strong [ref=f6e455]: 40%
+                    - text: faster page loads
+                  - cell "Silk Road Professionals" [ref=f6e456]
+                  - cell "Next.js SSR optimization" [ref=f6e457]
+                - row [ref=f6e458]:
+                  - cell [ref=f6e459]:
+                    - strong [ref=f6e460]: 4 countries
+                    - text: served
+                  - cell "Silk Road Professionals" [ref=f6e461]
+                  - cell "Client management platform" [ref=f6e462]
+                - row [ref=f6e463]:
+                  - cell [ref=f6e464]:
+                    - strong [ref=f6e465]: 2,000+ SKUs
+                    - text: managed
+                  - cell "ISHONCH Electronics" [ref=f6e466]
+                  - cell "Multi-store inventory sync with conflict resolution" [ref=f6e467]
+                - row [ref=f6e468]:
+                  - cell [ref=f6e469]:
+                    - strong [ref=f6e470]: 560-product
+                    - text: AI catalog
+                  - cell "Shopy" [ref=f6e471]
+                  - cell "MongoDB Atlas vector search pipeline" [ref=f6e472]
+                - row [ref=f6e473]:
+                  - cell [ref=f6e474]:
+                    - strong [ref=f6e475]: 32 GraphQL ops
+                    - text: / 11 modules
+                  - cell "Livit Platform" [ref=f6e476]
+                  - cell "NestJS + Apollo code-first schema" [ref=f6e477]
+                - row [ref=f6e478]:
+                  - cell [ref=f6e479]:
+                    - strong [ref=f6e480]: 500-row
+                    - text: PDF documents
+                  - cell "JQ-Auto" [ref=f6e481]
+                  - cell "Singleton Puppeteer render pipeline" [ref=f6e482]
+                - row [ref=f6e483]:
+                  - cell [ref=f6e484]:
+                    - strong [ref=f6e485]: 8 test suites
+                  - cell "TwilioMeet" [ref=f6e486]
+                  - cell "Vitest coverage on realtime logic" [ref=f6e487]
+            - table [ref=f6e490]:
+              - rowgroup [ref=f6e491]:
+                - row [ref=f6e492]:
+                  - columnheader "Certification" [ref=f6e493]
+                  - columnheader "Issuer" [ref=f6e494]
+                  - columnheader "Date" [ref=f6e495]
+              - rowgroup [ref=f6e496]:
+                - row [ref=f6e497]:
+                  - cell "The Complete Full-Stack Web Development Bootcamp" [ref=f6e498]
+                  - cell "Udemy — Angela Yu" [ref=f6e499]
+                  - cell "Sep 2025" [ref=f6e500]
+                - row [ref=f6e501]:
+                  - 'cell "Connect and Protect: Networks and Network Security" [ref=f6e502]'
+                  - cell "Google / Coursera" [ref=f6e503]
+                  - cell "Jan 2024" [ref=f6e504]
+                - row [ref=f6e505]:
+                  - cell "Junior Penetration Tester" [ref=f6e506]
+                  - cell "TryHackMe" [ref=f6e507]
+                  - cell "Nov 2024" [ref=f6e508]
+            - paragraph [ref=f6e509]:
+              - link [ref=f6e510] [cursor=pointer]:
+                - /url: https://raw.githubusercontent.com/Ali747711/Ali747711/master/assets/h/education.svg?v=1
+                - img "education.txt" [ref=f6e511]
+            - generic [ref=f6e512]:
+              - link [ref=f6e513] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/ee410a014a994416024208db5979e822d4282bf4a4bb748c3c7aaa42087d809a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446f6e672d2d415f556e69766572736974792d42616368656c6f725f6f665f427573696e6573735f41646d696e697374726174696f6e2d4133453633353f7374796c653d666f722d7468652d6261646765266c6f676f3d676f6f676c657363686f6c6172266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+                - img "Dong-A University" [ref=f6e514]
+              - link [ref=f6e515] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/e7a2ec132c0a577e0f3f56709d13b7cf45a854fc86ce2659dccd29f920a3dd79/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4d616a6f722d496e7465726e6174696f6e616c5f427573696e6573735f4d616e6167656d656e742d3135383033443f7374796c653d666f722d7468652d6261646765266c6f676f3d72656164746865646f6373266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+                - img "Major" [ref=f6e516]
+              - link [ref=f6e517] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/39260e0b79c6a51facd3c50fb6d7cd94b5570caea2f76ab782cb7f9124eabfbb/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f323032325fe280935f323032352d427573616e2c5f536f7574685f4b6f7265612d3135383033443f7374796c653d666f722d7468652d6261646765266c6f676f3d676f6f676c656d617073266c6f676f436f6c6f723d413345363335266c6162656c436f6c6f723d313231413134
+                - img "Years" [ref=f6e518]
+            - paragraph [ref=f6e519]:
+              - link [ref=f6e520] [cursor=pointer]:
+                - /url: https://raw.githubusercontent.com/Ali747711/Ali747711/master/assets/h/analytics.svg?v=1
+                - img "analytics.json" [ref=f6e521]
+            - generic [ref=f6e522]:
+              - link [ref=f6e523] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/c869a43f83c3885c7d3a286110e5d32ea6a3cb7ed0ef024524ee2bb2ade9f26c/68747470733a2f2f6769746875622d726561646d652d73746174732d73616c65737030372e76657263656c2e6170702f6170693f757365726e616d653d416c693734373731312673686f775f69636f6e733d7472756526686964655f626f726465723d7472756526636f756e745f707269766174653d7472756526696e636c7564655f616c6c5f636f6d6d6974733d747275652664697361626c655f616e696d6174696f6e733d747275652662675f636f6c6f723d304130463042267469746c655f636f6c6f723d41334536333526746578745f636f6c6f723d4536463045382669636f6e5f636f6c6f723d3232433535452672696e675f636f6c6f723d413345363335
+                - img "GitHub stats" [ref=f6e524]
+              - link [ref=f6e525] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/064bc0c1015448b7dba630464707a56d979e746507874a69e51aefa059e6a731/68747470733a2f2f73747265616b2d73746174732e76657263656c2e6170702f3f757365723d416c6937343737313126686964655f626f726465723d74727565266261636b67726f756e643d304130463042267374726f6b653d3135383033442672696e673d41334536333526666972653d443946393944266375727253747265616b4e756d3d45364630453826736964654e756d733d453646304538266375727253747265616b4c6162656c3d41334536333526736964654c6162656c733d3741384237462664617465733d374138423746
+                - img "GitHub streak" [ref=f6e526]
+              - link [ref=f6e527] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/4f468244c7a285110522e9ed2aaf23a73f594af742f9a0e4c03348fb2c341b3b/68747470733a2f2f6769746875622d726561646d652d73746174732d73616c65737030372e76657263656c2e6170702f6170692f746f702d6c616e67732f3f757365726e616d653d416c69373437373131266c61796f75743d636f6d70616374266c616e67735f636f756e743d3826686964655f626f726465723d747275652664697361626c655f616e696d6174696f6e733d747275652662675f636f6c6f723d304130463042267469746c655f636f6c6f723d41334536333526746578745f636f6c6f723d4536463045382669636f6e5f636f6c6f723d323243353545
+                - img "Top languages" [ref=f6e528]
+            - paragraph [ref=f6e529]:
+              - link [ref=f6e530] [cursor=pointer]:
+                - /url: https://raw.githubusercontent.com/Ali747711/Ali747711/master/assets/h/trophies.svg?v=1
+                - img "trophies.svg" [ref=f6e531]
+            - link [ref=f6e533] [cursor=pointer]:
+              - /url: https://camo.githubusercontent.com/1d50820e66f7b51b820e4b7ebc81debd78ab82019b2e2065e0fca18c5fd48e83/68747470733a2f2f6769746875622d74726f70686965732e76657263656c2e6170702f3f757365726e616d653d416c69373437373131267468656d653d6d6174726978266e6f2d6672616d653d7472756526636f6c756d6e3d37266d617267696e2d773d36266d617267696e2d683d36
+              - img "GitHub trophies" [ref=f6e534]
+            - paragraph [ref=f6e535]:
+              - link [ref=f6e536] [cursor=pointer]:
+                - /url: https://raw.githubusercontent.com/Ali747711/Ali747711/master/assets/h/activity.svg?v=1
+                - img "activity.log" [ref=f6e537]
+            - link [ref=f6e539] [cursor=pointer]:
+              - /url: https://camo.githubusercontent.com/3a9a3e722c54bfbf06af24e9baa2da5417e4b3d912a87015b476e807d43134c4/68747470733a2f2f6769746875622d726561646d652d61637469766974792d67726170682e76657263656c2e6170702f67726170683f757365726e616d653d416c693734373731312662675f636f6c6f723d30413046304226636f6c6f723d413345363335266c696e653d32324335354526706f696e743d44394639394426617265615f636f6c6f723d313538303344267469746c655f636f6c6f723d41334536333526617265613d7472756526686964655f626f726465723d74727565
+              - img "Contribution activity graph" [ref=f6e540]
+            - paragraph [ref=f6e541]:
+              - link [ref=f6e542] [cursor=pointer]:
+                - /url: https://raw.githubusercontent.com/Ali747711/Ali747711/master/assets/h/summary.svg?v=1
+                - img "summary.json" [ref=f6e543]
+            - generic [ref=f6e544]:
+              - link [ref=f6e545] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/54442e5630c971b81049a8d6e9ab022b34498831c5849a51f97cddd46aaf9ff1/68747470733a2f2f6769746875622d70726f66696c652d73756d6d6172792d63617264732e76657263656c2e6170702f6170692f63617264732f70726f66696c652d64657461696c733f757365726e616d653d416c693734373731312662675f636f6c6f723d304130463042267469746c655f636f6c6f723d41334536333526746578745f636f6c6f723d4536463045382669636f6e5f636f6c6f723d32324335354526626f726465725f636f6c6f723d313231413134
+                - img "Profile details" [ref=f6e546]
+              - link [ref=f6e547] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/00770820afd5c9c30ae02ae31a1e25ad09de545023e35df8e7da7a0fad687d1c/68747470733a2f2f6769746875622d70726f66696c652d73756d6d6172792d63617264732e76657263656c2e6170702f6170692f63617264732f7265706f732d7065722d6c616e67756167653f757365726e616d653d416c693734373731312662675f636f6c6f723d304130463042267469746c655f636f6c6f723d41334536333526746578745f636f6c6f723d4536463045382669636f6e5f636f6c6f723d32324335354526626f726465725f636f6c6f723d313231413134
+                - img "Repos per language" [ref=f6e548]
+              - link [ref=f6e549] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/5a04400808bf66a753a76b2214d6971be08e2c6a6727f7430afabc2ba0db3f89/68747470733a2f2f6769746875622d70726f66696c652d73756d6d6172792d63617264732e76657263656c2e6170702f6170692f63617264732f6d6f73742d636f6d6d69742d6c616e67756167653f757365726e616d653d416c693734373731312662675f636f6c6f723d304130463042267469746c655f636f6c6f723d41334536333526746578745f636f6c6f723d4536463045382669636f6e5f636f6c6f723d32324335354526626f726465725f636f6c6f723d313231413134
+                - img "Most commit language" [ref=f6e550]
+              - link [ref=f6e551] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/ecb16f570e7e3cdc74cad8cf8708016ac1268c2459e03d01a82013478cf32b5b/68747470733a2f2f6769746875622d70726f66696c652d73756d6d6172792d63617264732e76657263656c2e6170702f6170692f63617264732f73746174733f757365726e616d653d416c693734373731312662675f636f6c6f723d304130463042267469746c655f636f6c6f723d41334536333526746578745f636f6c6f723d4536463045382669636f6e5f636f6c6f723d32324335354526626f726465725f636f6c6f723d313231413134
+                - img "Stats" [ref=f6e552]
+              - link "Productive time" [ref=f6e553] [cursor=pointer]:
+                - /url: https://camo.githubusercontent.com/2d88390aaa55144638818728d7a3b624e3b644f939f885b0ee2b738d255874c9/68747470733a2f2f6769746875622d70726f66696c652d73756d6d6172792d63617264732e76657263656c2e6170702f6170692f63617264732f70726f647563746976652d74696d653f757365726e616d653d416c69373437373131267574634f66667365743d392662675f636f6c6f723d304130463042267469746c655f636f6c6f723d41334536333526746578745f636f6c6f723d4536463045382669636f6e5f636f6c6f723d32324335354526626f726465725f636f6c6f723d313231413134
+                - img "Productive time"
+            - paragraph [ref=f6e554]:
+              - link [ref=f6e555] [cursor=pointer]:
+                - /url: https://raw.githubusercontent.com/Ali747711/Ali747711/master/assets/h/snake.svg?v=1
+                - img "snake.svg" [ref=f6e556]
+            - link [ref=f6e558] [cursor=pointer]:
+              - /url: https://raw.githubusercontent.com/Ali747711/Ali747711/output/github-contribution-grid-snake-dark.svg
+              - img "Contribution snake animation" [ref=f6e559]
+            - paragraph [ref=f6e560]:
+              - link [ref=f6e561] [cursor=pointer]:
+                - /url: https://raw.githubusercontent.com/Ali747711/Ali747711/master/assets/h/now.svg?v=1
+                - img "now.yaml" [ref=f6e562]
+            - generic [ref=f6e563]:
+              - generic [ref=f6e564]: "learning: - AI agent engineering — Claude Skills, MCP servers, multi-agent orchestration - Backend architecture at scale — NestJS module design, GraphQL federation patterns - Java Spring Boot — deeper into Spring Security and JPA internals building: - Shopy — hardening the vector search + streaming assistant toward production - Avicenna — multilingual AI symptom analysis, production readiness - OpenClaw — agent tooling experiments exploring: - MongoDB Atlas vector search tuning and embedding cost control - Local inference with Ollama and Groq for latency-sensitive AI endpoints - n8n workflow automation as glue between LLMs and business tools open_to: roles: [Full-Stack Developer, Backend Developer, AI Engineer] location: South Korea — onsite / hybrid / remote contract: Freelance projects welcome visa: D-10 job seeker contact: alexnabiyev5@gmail.com"
+              - button "Copy code to clipboard" [ref=f6e566] [cursor=pointer]
+            - paragraph [ref=f6e570]:
+              - link [ref=f6e571] [cursor=pointer]:
+                - /url: https://raw.githubusercontent.com/Ali747711/Ali747711/master/assets/h/connect.svg?v=1
+                - img "connect.sh" [ref=f6e572]
+            - generic [ref=f6e573]:
+              - paragraph [ref=f6e574]:
+                - link [ref=f6e575] [cursor=pointer]:
+                  - /url: https://ali-pro.vercel.app/
+                  - img "Portfolio" [ref=f6e576]
+                - link [ref=f6e577] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/in/nabiev-azamat-292903259/
+                  - img "LinkedIn" [ref=f6e578]
+                - link [ref=f6e579] [cursor=pointer]:
+                  - /url: mailto:alexnabiyev5@gmail.com
+                  - img "Email" [ref=f6e580]
+                - link [ref=f6e581] [cursor=pointer]:
+                  - /url: https://github.com/Ali747711
+                  - img "GitHub" [ref=f6e582]
+                - link [ref=f6e583] [cursor=pointer]:
+                  - /url: https://t.me/nabiev0727
+                  - img "Telegram" [ref=f6e584]
+              - blockquote [ref=f6e585]:
+                - paragraph [ref=f6e586]:
+                  - strong [ref=f6e587]:
+                    - code [ref=f6e588]: Ship it grounded, guard the budget, degrade gracefully — production AI is an engineering problem, not a prompt.
+              - link [ref=f6e589] [cursor=pointer]:
+                - /url: https://raw.githubusercontent.com/Ali747711/Ali747711/master/assets/footer.svg?v=1
+                - img "Open to work — alexnabiyev5@gmail.com" [ref=f6e590]
+        - generic [ref=f6e592]:
+          - heading "Pinned Loading" [level=2] [ref=f6e593]:
+            - text: Pinned
+            - generic: Loading
+            - status
+          - list [ref=f6e595]:
+            - listitem [ref=f6e596]:
+              - generic [ref=f6e598]:
+                - generic [ref=f6e600]:
+                  - link "ai-automation-server" [ref=f6e604] [cursor=pointer]:
+                    - /url: /Ali747711/ai-automation-server
+                  - text: Public
+                - paragraph
+                - paragraph [ref=f6e605]:
+                  - generic [ref=f6e606]: TypeScript
+            - listitem [ref=f6e608]:
+              - generic [ref=f6e610]:
+                - generic [ref=f6e612]:
+                  - link "EX-assistant" [ref=f6e616] [cursor=pointer]:
+                    - /url: /Ali747711/EX-assistant
+                  - text: Public
+                - paragraph [ref=f6e617]
+                - paragraph
+            - listitem [ref=f6e618]:
+              - generic [ref=f6e620]:
+                - generic [ref=f6e622]:
+                  - link "Livit-next" [ref=f6e626] [cursor=pointer]:
+                    - /url: /Ali747711/Livit-next
+                  - text: Public
+                - paragraph
+                - paragraph [ref=f6e627]:
+                  - generic [ref=f6e628]: TypeScript
+            - listitem [ref=f6e630]:
+              - generic [ref=f6e632]:
+                - generic [ref=f6e634]:
+                  - link "Livit-Upgrade" [ref=f6e638] [cursor=pointer]:
+                    - /url: /Ali747711/Livit-Upgrade
+                  - text: Public
+                - paragraph
+                - paragraph [ref=f6e639]:
+                  - generic [ref=f6e640]: Java
+            - listitem [ref=f6e642]:
+              - generic [ref=f6e644]:
+                - generic [ref=f6e646]:
+                  - link "uber-frontend" [ref=f6e650] [cursor=pointer]:
+                    - /url: /Ali747711/uber-frontend
+                  - text: Public
+                - paragraph
+                - paragraph [ref=f6e651]:
+                  - generic [ref=f6e652]: TypeScript
+            - listitem [ref=f6e654]:
+              - generic [ref=f6e656]:
+                - generic [ref=f6e658]:
+                  - link "wisp-web-ai-agent-integration" [ref=f6e662] [cursor=pointer]:
+                    - /url: /Ali747711/wisp-web-ai-agent-integration
+                  - text: Public
+                - paragraph
+                - paragraph [ref=f6e663]:
+                  - generic [ref=f6e664]: TypeScript
+        - generic [ref=f6e666]:
+          - generic [ref=f6e668]:
+            - heading "534 contributions in the last year" [level=2] [ref=f6e669]
+            - link "Skip to contributions year list" [ref=f6e670] [cursor=pointer]:
+              - /url: "#year-link-2026"
+            - generic [ref=f6e672]:
+              - grid [ref=f6e674]:
+                - caption [ref=f6e675]: Contribution Graph
+                - rowgroup [ref=f6e676]:
+                  - row [ref=f6e677]:
+                    - gridcell "Day of Week" [ref=f6e678]
+                    - gridcell "August" [ref=f6e680]:
+                      - generic [ref=f6e682]: Aug
+                    - gridcell "September" [ref=f6e683]:
+                      - generic [ref=f6e685]: Sep
+                    - gridcell "October" [ref=f6e686]:
+                      - generic [ref=f6e688]: Oct
+                    - gridcell "November" [ref=f6e689]:
+                      - generic [ref=f6e691]: Nov
+                    - gridcell "December" [ref=f6e692]:
+                      - generic [ref=f6e694]: Dec
+                    - gridcell "January" [ref=f6e695]:
+                      - generic [ref=f6e697]: Jan
+                    - gridcell "February" [ref=f6e698]:
+                      - generic [ref=f6e700]: Feb
+                    - gridcell "March" [ref=f6e701]:
+                      - generic [ref=f6e703]: Mar
+                    - gridcell "April" [ref=f6e704]:
+                      - generic [ref=f6e706]: Apr
+                    - gridcell "May" [ref=f6e707]
+                    - gridcell "June" [ref=f6e710]:
+                      - generic [ref=f6e712]: Jun
+                    - gridcell "July" [ref=f6e713]:
+                      - generic [ref=f6e715]: Jul
+                    - gridcell "August" [ref=f6e716]:
+                      - generic [ref=f6e718]: Aug
+                - rowgroup [ref=f6e719]:
+                  - row [ref=f6e720]:
+                    - gridcell "Sunday" [ref=f6e721]:
+                      - generic [ref=f6e723]: Sun
+                    - gridcell "No contributions on August 10th." [ref=f6e724]
+                    - gridcell "No contributions on August 17th." [ref=f6e725]
+                    - gridcell "No contributions on August 24th." [ref=f6e726]
+                    - gridcell "No contributions on August 31st." [ref=f6e727]
+                    - gridcell "No contributions on September 7th." [ref=f6e728]
+                    - gridcell "No contributions on September 14th." [ref=f6e729]
+                    - gridcell "1 contribution on September 21st." [ref=f6e730]
+                    - gridcell "No contributions on September 28th." [ref=f6e731]
+                    - gridcell "No contributions on October 5th." [ref=f6e732]
+                    - gridcell "No contributions on October 12th." [ref=f6e733]
+                    - gridcell "No contributions on October 19th." [ref=f6e734]
+                    - gridcell "No contributions on October 26th." [ref=f6e735]
+                    - gridcell "No contributions on November 2nd." [ref=f6e736]
+                    - gridcell "No contributions on November 9th." [ref=f6e737]
+                    - gridcell "No contributions on November 16th." [ref=f6e738]
+                    - gridcell "No contributions on November 23rd." [ref=f6e739]
+                    - gridcell "6 contributions on November 30th." [ref=f6e740]
+                    - gridcell "No contributions on December 7th." [ref=f6e741]
+                    - gridcell "No contributions on December 14th." [ref=f6e742]
+                    - gridcell "No contributions on December 21st." [ref=f6e743]
+                    - gridcell "41 contributions on December 28th." [ref=f6e744]
+                    - gridcell "1 contribution on January 4th." [ref=f6e745]
+                    - gridcell "6 contributions on January 11th." [ref=f6e746]
+                    - gridcell "3 contributions on January 18th." [ref=f6e747]
+                    - gridcell "3 contributions on January 25th." [ref=f6e748]
+                    - gridcell "No contributions on February 1st." [ref=f6e749]
+                    - gridcell "No contributions on February 8th." [ref=f6e750]
+                    - gridcell "No contributions on February 15th." [ref=f6e751]
+                    - gridcell "No contributions on February 22nd." [ref=f6e752]
+                    - gridcell "No contributions on March 1st." [ref=f6e753]
+                    - gridcell "No contributions on March 8th." [ref=f6e754]
+                    - gridcell "3 contributions on March 15th." [ref=f6e755]
+                    - gridcell "3 contributions on March 22nd." [ref=f6e756]
+                    - gridcell "No contributions on March 29th." [ref=f6e757]
+                    - gridcell "No contributions on April 5th." [ref=f6e758]
+                    - gridcell "No contributions on April 12th." [ref=f6e759]
+                    - gridcell "4 contributions on April 19th." [ref=f6e760]
+                    - gridcell "6 contributions on April 26th." [ref=f6e761]
+                    - gridcell "8 contributions on May 3rd." [ref=f6e762]
+                    - gridcell "No contributions on May 10th." [ref=f6e763]
+                    - gridcell "No contributions on May 17th." [ref=f6e764]
+                    - gridcell "No contributions on May 24th." [ref=f6e765]
+                    - gridcell "2 contributions on May 31st." [ref=f6e766]
+                    - gridcell "No contributions on June 7th." [ref=f6e767]
+                    - gridcell "26 contributions on June 14th." [ref=f6e768]
+                    - gridcell "No contributions on June 21st." [ref=f6e769]
+                    - gridcell "No contributions on June 28th." [ref=f6e770]
+                    - gridcell "No contributions on July 5th." [ref=f6e771]
+                    - gridcell "4 contributions on July 12th." [ref=f6e772]
+                    - gridcell "No contributions on July 19th." [ref=f6e773]
+                    - gridcell "No contributions on July 26th." [ref=f6e774]
+                    - gridcell "No contributions on August 2nd." [ref=f6e775]
+                    - gridcell "No contributions on August 9th." [ref=f6e776]
+                  - row [ref=f6e777]:
+                    - gridcell "Monday" [ref=f6e778]:
+                      - generic [ref=f6e780]: Mon
+                    - gridcell "No contributions on August 11th." [ref=f6e781]
+                    - gridcell "No contributions on August 18th." [ref=f6e782]
+                    - gridcell "No contributions on August 25th." [ref=f6e783]
+                    - gridcell "No contributions on September 1st." [ref=f6e784]
+                    - gridcell "No contributions on September 8th." [ref=f6e785]
+                    - gridcell "No contributions on September 15th." [ref=f6e786]
+                    - gridcell "No contributions on September 22nd." [ref=f6e787]
+                    - gridcell "No contributions on September 29th." [ref=f6e788]
+                    - gridcell "No contributions on October 6th." [ref=f6e789]
+                    - gridcell "4 contributions on October 13th." [ref=f6e790]
+                    - gridcell "No contributions on October 20th." [ref=f6e791]
+                    - gridcell "No contributions on October 27th." [ref=f6e792]
+                    - gridcell "No contributions on November 3rd." [ref=f6e793]
+                    - gridcell "No contributions on November 10th." [ref=f6e794]
+                    - gridcell "No contributions on November 17th." [ref=f6e795]
+                    - gridcell "No contributions on November 24th." [ref=f6e796]
+                    - gridcell "No contributions on December 1st." [ref=f6e797]
+                    - gridcell "No contributions on December 8th." [ref=f6e798]
+                    - gridcell "No contributions on December 15th." [ref=f6e799]
+                    - gridcell "No contributions on December 22nd." [ref=f6e800]
+                    - gridcell "No contributions on December 29th." [ref=f6e801]
+                    - gridcell "2 contributions on January 5th." [ref=f6e802]
+                    - gridcell "7 contributions on January 12th." [ref=f6e803]
+                    - gridcell "6 contributions on January 19th." [ref=f6e804]
+                    - gridcell "No contributions on January 26th." [ref=f6e805]
+                    - gridcell "No contributions on February 2nd." [ref=f6e806]
+                    - gridcell "No contributions on February 9th." [ref=f6e807]
+                    - gridcell "6 contributions on February 16th." [ref=f6e808]
+                    - gridcell "No contributions on February 23rd." [ref=f6e809]
+                    - gridcell "No contributions on March 2nd." [ref=f6e810]
+                    - gridcell "No contributions on March 9th." [ref=f6e811]
+                    - gridcell "No contributions on March 16th." [ref=f6e812]
+                    - gridcell "No contributions on March 23rd." [ref=f6e813]
+                    - gridcell "No contributions on March 30th." [ref=f6e814]
+                    - gridcell "No contributions on April 6th." [ref=f6e815]
+                    - gridcell "No contributions on April 13th." [ref=f6e816]
+                    - gridcell "2 contributions on April 20th." [ref=f6e817]
+                    - gridcell "No contributions on April 27th." [ref=f6e818]
+                    - gridcell "1 contribution on May 4th." [ref=f6e819]
+                    - gridcell "No contributions on May 11th." [ref=f6e820]
+                    - gridcell "No contributions on May 18th." [ref=f6e821]
+                    - gridcell "3 contributions on May 25th." [ref=f6e822]
+                    - gridcell "12 contributions on June 1st." [ref=f6e823]
+                    - gridcell "No contributions on June 8th." [ref=f6e824]
+                    - gridcell "No contributions on June 15th." [ref=f6e825]
+                    - gridcell "No contributions on June 22nd." [ref=f6e826]
+                    - gridcell "2 contributions on June 29th." [ref=f6e827]
+                    - gridcell "7 contributions on July 6th." [ref=f6e828]
+                    - gridcell "3 contributions on July 13th." [ref=f6e829]
+                    - gridcell "No contributions on July 20th." [ref=f6e830]
+                    - gridcell "No contributions on July 27th." [ref=f6e831]
+                    - gridcell "13 contributions on August 3rd." [ref=f6e832]
+                    - gridcell "No contributions on August 10th." [ref=f6e833]
+                  - row [ref=f6e834]:
+                    - gridcell "Tuesday" [ref=f6e835]:
+                      - generic [ref=f6e837]: Tue
+                    - gridcell "No contributions on August 12th." [ref=f6e838]
+                    - gridcell "No contributions on August 19th." [ref=f6e839]
+                    - gridcell "No contributions on August 26th." [ref=f6e840]
+                    - gridcell "No contributions on September 2nd." [ref=f6e841]
+                    - gridcell "No contributions on September 9th." [ref=f6e842]
+                    - gridcell "No contributions on September 16th." [ref=f6e843]
+                    - gridcell "No contributions on September 23rd." [ref=f6e844]
+                    - gridcell "No contributions on September 30th." [ref=f6e845]
+                    - gridcell "No contributions on October 7th." [ref=f6e846]
+                    - gridcell "3 contributions on October 14th." [ref=f6e847]
+                    - gridcell "No contributions on October 21st." [ref=f6e848]
+                    - gridcell "No contributions on October 28th." [ref=f6e849]
+                    - gridcell "No contributions on November 4th." [ref=f6e850]
+                    - gridcell "No contributions on November 11th." [ref=f6e851]
+                    - gridcell "No contributions on November 18th." [ref=f6e852]
+                    - gridcell "No contributions on November 25th." [ref=f6e853]
+                    - gridcell "No contributions on December 2nd." [ref=f6e854]
+                    - gridcell "No contributions on December 9th." [ref=f6e855]
+                    - gridcell "No contributions on December 16th." [ref=f6e856]
+                    - gridcell "7 contributions on December 23rd." [ref=f6e857]
+                    - gridcell "No contributions on December 30th." [ref=f6e858]
+                    - gridcell "No contributions on January 6th." [ref=f6e859]
+                    - gridcell "11 contributions on January 13th." [ref=f6e860]
+                    - gridcell "2 contributions on January 20th." [ref=f6e861]
+                    - gridcell "No contributions on January 27th." [ref=f6e862]
+                    - gridcell "No contributions on February 3rd." [ref=f6e863]
+                    - gridcell "No contributions on February 10th." [ref=f6e864]
+                    - gridcell "No contributions on February 17th." [ref=f6e865]
+                    - gridcell "No contributions on February 24th." [ref=f6e866]
+                    - gridcell "2 contributions on March 3rd." [ref=f6e867]
+                    - gridcell "No contributions on March 10th." [ref=f6e868]
+                    - gridcell "5 contributions on March 17th." [ref=f6e869]
+                    - gridcell "No contributions on March 24th." [ref=f6e870]
+                    - gridcell "No contributions on March 31st." [ref=f6e871]
+                    - gridcell "1 contribution on April 7th." [ref=f6e872]
+                    - gridcell "1 contribution on April 14th." [ref=f6e873]
+                    - gridcell "No contributions on April 21st." [ref=f6e874]
+                    - gridcell "8 contributions on April 28th." [ref=f6e875]
+                    - gridcell "No contributions on May 5th." [ref=f6e876]
+                    - gridcell "No contributions on May 12th." [ref=f6e877]
+                    - gridcell "No contributions on May 19th." [ref=f6e878]
+                    - gridcell "No contributions on May 26th." [ref=f6e879]
+                    - gridcell "13 contributions on June 2nd." [ref=f6e880]
+                    - gridcell "No contributions on June 9th." [ref=f6e881]
+                    - gridcell "No contributions on June 16th." [ref=f6e882]
+                    - gridcell "8 contributions on June 23rd." [ref=f6e883]
+                    - gridcell "23 contributions on June 30th." [ref=f6e884]
+                    - gridcell "No contributions on July 7th." [ref=f6e885]
+                    - gridcell "No contributions on July 14th." [ref=f6e886]
+                    - gridcell "No contributions on July 21st." [ref=f6e887]
+                    - gridcell "No contributions on July 28th." [ref=f6e888]
+                    - gridcell "No contributions on August 4th." [ref=f6e889]
+                    - gridcell "No contributions on August 11th." [ref=f6e890]
+                  - row [ref=f6e891]:
+                    - gridcell "Wednesday" [ref=f6e892]:
+                      - generic [ref=f6e894]: Wed
+                    - gridcell "No contributions on August 13th." [ref=f6e895]
+                    - gridcell "No contributions on August 20th." [ref=f6e896]
+                    - gridcell "No contributions on August 27th." [ref=f6e897]
+                    - gridcell "No contributions on September 3rd." [ref=f6e898]
+                    - gridcell "3 contributions on September 10th." [ref=f6e899]
+                    - gridcell "No contributions on September 17th." [ref=f6e900]
+                    - gridcell "No contributions on September 24th." [ref=f6e901]
+                    - gridcell "No contributions on October 1st." [ref=f6e902]
+                    - gridcell "No contributions on October 8th." [ref=f6e903]
+                    - gridcell "No contributions on October 15th." [ref=f6e904]
+                    - gridcell "1 contribution on October 22nd." [ref=f6e905]
+                    - gridcell "No contributions on October 29th." [ref=f6e906]
+                    - gridcell "No contributions on November 5th." [ref=f6e907]
+                    - gridcell "No contributions on November 12th." [ref=f6e908]
+                    - gridcell "No contributions on November 19th." [ref=f6e909]
+                    - gridcell "No contributions on November 26th." [ref=f6e910]
+                    - gridcell "No contributions on December 3rd." [ref=f6e911]
+                    - gridcell "No contributions on December 10th." [ref=f6e912]
+                    - gridcell "No contributions on December 17th." [ref=f6e913]
+                    - gridcell "No contributions on December 24th." [ref=f6e914]
+                    - gridcell "No contributions on December 31st." [ref=f6e915]
+                    - gridcell "1 contribution on January 7th." [ref=f6e916]
+                    - gridcell "6 contributions on January 14th." [ref=f6e917]
+                    - gridcell "14 contributions on January 21st." [ref=f6e918]
+                    - gridcell "2 contributions on January 28th." [ref=f6e919]
+                    - gridcell "No contributions on February 4th." [ref=f6e920]
+                    - gridcell "No contributions on February 11th." [ref=f6e921]
+                    - gridcell "No contributions on February 18th." [ref=f6e922]
+                    - gridcell "No contributions on February 25th." [ref=f6e923]
+                    - gridcell "8 contributions on March 4th." [ref=f6e924]
+                    - gridcell "No contributions on March 11th." [ref=f6e925]
+                    - gridcell "No contributions on March 18th." [ref=f6e926]
+                    - gridcell "No contributions on March 25th." [ref=f6e927]
+                    - gridcell "No contributions on April 1st." [ref=f6e928]
+                    - gridcell "6 contributions on April 8th." [ref=f6e929]
+                    - gridcell "6 contributions on April 15th." [ref=f6e930]
+                    - gridcell "1 contribution on April 22nd." [ref=f6e931]
+                    - gridcell "No contributions on April 29th." [ref=f6e932]
+                    - gridcell "No contributions on May 6th." [ref=f6e933]
+                    - gridcell "No contributions on May 13th." [ref=f6e934]
+                    - gridcell "No contributions on May 20th." [ref=f6e935]
+                    - gridcell "No contributions on May 27th." [ref=f6e936]
+                    - gridcell "No contributions on June 3rd." [ref=f6e937]
+                    - gridcell "No contributions on June 10th." [ref=f6e938]
+                    - gridcell "3 contributions on June 17th." [ref=f6e939]
+                    - gridcell "8 contributions on June 24th." [ref=f6e940]
+                    - gridcell "32 contributions on July 1st." [ref=f6e941]
+                    - gridcell "15 contributions on July 8th." [ref=f6e942]
+                    - gridcell "No contributions on July 15th." [ref=f6e943]
+                    - gridcell "No contributions on July 22nd." [ref=f6e944]
+                    - gridcell "1 contribution on July 29th." [ref=f6e945]
+                    - gridcell "No contributions on August 5th." [ref=f6e946]
+                    - gridcell "No contributions on August 12th." [ref=f6e947]
+                  - row [ref=f6e948]:
+                    - gridcell "Thursday" [ref=f6e949]:
+                      - generic [ref=f6e951]: Thu
+                    - gridcell "No contributions on August 14th." [ref=f6e952]
+                    - gridcell "No contributions on August 21st." [ref=f6e953]
+                    - gridcell "No contributions on August 28th." [ref=f6e954]
+                    - gridcell "No contributions on September 4th." [ref=f6e955]
+                    - gridcell "No contributions on September 11th." [ref=f6e956]
+                    - gridcell "4 contributions on September 18th." [ref=f6e957]
+                    - gridcell "No contributions on September 25th." [ref=f6e958]
+                    - gridcell "No contributions on October 2nd." [ref=f6e959]
+                    - gridcell "No contributions on October 9th." [ref=f6e960]
+                    - gridcell "1 contribution on October 16th." [ref=f6e961]
+                    - gridcell "No contributions on October 23rd." [ref=f6e962]
+                    - gridcell "No contributions on October 30th." [ref=f6e963]
+                    - gridcell "No contributions on November 6th." [ref=f6e964]
+                    - gridcell "No contributions on November 13th." [ref=f6e965]
+                    - gridcell "No contributions on November 20th." [ref=f6e966]
+                    - gridcell "No contributions on November 27th." [ref=f6e967]
+                    - gridcell "No contributions on December 4th." [ref=f6e968]
+                    - gridcell "No contributions on December 11th." [ref=f6e969]
+                    - gridcell "2 contributions on December 18th." [ref=f6e970]
+                    - gridcell "No contributions on December 25th." [ref=f6e971]
+                    - gridcell "3 contributions on January 1st." [ref=f6e972]
+                    - gridcell "3 contributions on January 8th." [ref=f6e973]
+                    - gridcell "No contributions on January 15th." [ref=f6e974]
+                    - gridcell "1 contribution on January 22nd." [ref=f6e975]
+                    - gridcell "2 contributions on January 29th." [ref=f6e976]
+                    - gridcell "No contributions on February 5th." [ref=f6e977]
+                    - gridcell "No contributions on February 12th." [ref=f6e978]
+                    - gridcell "1 contribution on February 19th." [ref=f6e979]
+                    - gridcell "3 contributions on February 26th." [ref=f6e980]
+                    - gridcell "No contributions on March 5th." [ref=f6e981]
+                    - gridcell "No contributions on March 12th." [ref=f6e982]
+                    - gridcell "2 contributions on March 19th." [ref=f6e983]
+                    - gridcell "No contributions on March 26th." [ref=f6e984]
+                    - gridcell "No contributions on April 2nd." [ref=f6e985]
+                    - gridcell "No contributions on April 9th." [ref=f6e986]
+                    - gridcell "No contributions on April 16th." [ref=f6e987]
+                    - gridcell "No contributions on April 23rd." [ref=f6e988]
+                    - gridcell "No contributions on April 30th." [ref=f6e989]
+                    - gridcell "No contributions on May 7th." [ref=f6e990]
+                    - gridcell "No contributions on May 14th." [ref=f6e991]
+                    - gridcell "1 contribution on May 21st." [ref=f6e992]
+                    - gridcell "3 contributions on May 28th." [ref=f6e993]
+                    - gridcell "No contributions on June 4th." [ref=f6e994]
+                    - gridcell "2 contributions on June 11th." [ref=f6e995]
+                    - gridcell "2 contributions on June 18th." [ref=f6e996]
+                    - gridcell "No contributions on June 25th." [ref=f6e997]
+                    - gridcell "No contributions on July 2nd." [ref=f6e998]
+                    - gridcell "7 contributions on July 9th." [ref=f6e999]
+                    - gridcell "No contributions on July 16th." [ref=f6e1000]
+                    - gridcell "No contributions on July 23rd." [ref=f6e1001]
+                    - gridcell "6 contributions on July 30th." [ref=f6e1002]
+                    - gridcell "No contributions on August 6th." [ref=f6e1003]
+                    - gridcell "No contributions on August 13th." [ref=f6e1004]
+                  - row [ref=f6e1005]:
+                    - gridcell "Friday" [ref=f6e1006]:
+                      - generic [ref=f6e1008]: Fri
+                    - gridcell "No contributions on August 15th." [ref=f6e1009]
+                    - gridcell "No contributions on August 22nd." [ref=f6e1010]
+                    - gridcell "No contributions on August 29th." [ref=f6e1011]
+                    - gridcell "No contributions on September 5th." [ref=f6e1012]
+                    - gridcell "No contributions on September 12th." [ref=f6e1013]
+                    - gridcell "No contributions on September 19th." [ref=f6e1014]
+                    - gridcell "No contributions on September 26th." [ref=f6e1015]
+                    - gridcell "No contributions on October 3rd." [ref=f6e1016]
+                    - gridcell "No contributions on October 10th." [ref=f6e1017]
+                    - gridcell "No contributions on October 17th." [ref=f6e1018]
+                    - gridcell "No contributions on October 24th." [ref=f6e1019]
+                    - gridcell "No contributions on October 31st." [ref=f6e1020]
+                    - gridcell "No contributions on November 7th." [ref=f6e1021]
+                    - gridcell "No contributions on November 14th." [ref=f6e1022]
+                    - gridcell "3 contributions on November 21st." [ref=f6e1023]
+                    - gridcell "No contributions on November 28th." [ref=f6e1024]
+                    - gridcell "No contributions on December 5th." [ref=f6e1025]
+                    - gridcell "No contributions on December 12th." [ref=f6e1026]
+                    - gridcell "1 contribution on December 19th." [ref=f6e1027]
+                    - gridcell "No contributions on December 26th." [ref=f6e1028]
+                    - gridcell "No contributions on January 2nd." [ref=f6e1029]
+                    - gridcell "3 contributions on January 9th." [ref=f6e1030]
+                    - gridcell "4 contributions on January 16th." [ref=f6e1031]
+                    - gridcell "3 contributions on January 23rd." [ref=f6e1032]
+                    - gridcell "No contributions on January 30th." [ref=f6e1033]
+                    - gridcell "No contributions on February 6th." [ref=f6e1034]
+                    - gridcell "No contributions on February 13th." [ref=f6e1035]
+                    - gridcell "No contributions on February 20th." [ref=f6e1036]
+                    - gridcell "3 contributions on February 27th." [ref=f6e1037]
+                    - gridcell "1 contribution on March 6th." [ref=f6e1038]
+                    - gridcell "No contributions on March 13th." [ref=f6e1039]
+                    - gridcell "No contributions on March 20th." [ref=f6e1040]
+                    - gridcell "8 contributions on March 27th." [ref=f6e1041]
+                    - gridcell "No contributions on April 3rd." [ref=f6e1042]
+                    - gridcell "No contributions on April 10th." [ref=f6e1043]
+                    - gridcell "No contributions on April 17th." [ref=f6e1044]
+                    - gridcell "No contributions on April 24th." [ref=f6e1045]
+                    - gridcell "No contributions on May 1st." [ref=f6e1046]
+                    - gridcell "No contributions on May 8th." [ref=f6e1047]
+                    - gridcell "No contributions on May 15th." [ref=f6e1048]
+                    - gridcell "No contributions on May 22nd." [ref=f6e1049]
+                    - gridcell "10 contributions on May 29th." [ref=f6e1050]
+                    - gridcell "No contributions on June 5th." [ref=f6e1051]
+                    - gridcell "2 contributions on June 12th." [ref=f6e1052]
+                    - gridcell "No contributions on June 19th." [ref=f6e1053]
+                    - gridcell "No contributions on June 26th." [ref=f6e1054]
+                    - gridcell "No contributions on July 3rd." [ref=f6e1055]
+                    - gridcell "3 contributions on July 10th." [ref=f6e1056]
+                    - gridcell "6 contributions on July 17th." [ref=f6e1057]
+                    - gridcell "No contributions on July 24th." [ref=f6e1058]
+                    - gridcell "No contributions on July 31st." [ref=f6e1059]
+                    - gridcell "No contributions on August 7th." [ref=f6e1060]
+                    - gridcell "4 contributions on August 14th." [ref=f6e1061]
+                  - row [ref=f6e1062]:
+                    - gridcell "Saturday" [ref=f6e1063]:
+                      - generic [ref=f6e1065]: Sat
+                    - gridcell "No contributions on August 16th." [ref=f6e1066]
+                    - gridcell "No contributions on August 23rd." [ref=f6e1067]
+                    - gridcell "No contributions on August 30th." [ref=f6e1068]
+                    - gridcell "No contributions on September 6th." [ref=f6e1069]
+                    - gridcell "No contributions on September 13th." [ref=f6e1070]
+                    - gridcell "8 contributions on September 20th." [ref=f6e1071]
+                    - gridcell "No contributions on September 27th." [ref=f6e1072]
+                    - gridcell "No contributions on October 4th." [ref=f6e1073]
+                    - gridcell "No contributions on October 11th." [ref=f6e1074]
+                    - gridcell "No contributions on October 18th." [ref=f6e1075]
+                    - gridcell "No contributions on October 25th." [ref=f6e1076]
+                    - gridcell "No contributions on November 1st." [ref=f6e1077]
+                    - gridcell "No contributions on November 8th." [ref=f6e1078]
+                    - gridcell "No contributions on November 15th." [ref=f6e1079]
+                    - gridcell "No contributions on November 22nd." [ref=f6e1080]
+                    - gridcell "No contributions on November 29th." [ref=f6e1081]
+                    - gridcell "No contributions on December 6th." [ref=f6e1082]
+                    - gridcell "No contributions on December 13th." [ref=f6e1083]
+                    - gridcell "No contributions on December 20th." [ref=f6e1084]
+                    - gridcell "4 contributions on December 27th." [ref=f6e1085]
+                    - gridcell "6 contributions on January 3rd." [ref=f6e1086]
+                    - gridcell "2 contributions on January 10th." [ref=f6e1087]
+                    - gridcell "2 contributions on January 17th." [ref=f6e1088]
+                    - gridcell "2 contributions on January 24th." [ref=f6e1089]
+                    - gridcell "No contributions on January 31st." [ref=f6e1090]
+                    - gridcell "No contributions on February 7th." [ref=f6e1091]
+                    - gridcell "No contributions on February 14th." [ref=f6e1092]
+                    - gridcell "No contributions on February 21st." [ref=f6e1093]
+                    - gridcell "No contributions on February 28th." [ref=f6e1094]
+                    - gridcell "No contributions on March 7th." [ref=f6e1095]
+                    - gridcell "No contributions on March 14th." [ref=f6e1096]
+                    - gridcell "No contributions on March 21st." [ref=f6e1097]
+                    - gridcell "No contributions on March 28th." [ref=f6e1098]
+                    - gridcell "No contributions on April 4th." [ref=f6e1099]
+                    - gridcell "1 contribution on April 11th." [ref=f6e1100]
+                    - gridcell "No contributions on April 18th." [ref=f6e1101]
+                    - gridcell "8 contributions on April 25th." [ref=f6e1102]
+                    - gridcell "No contributions on May 2nd." [ref=f6e1103]
+                    - gridcell "No contributions on May 9th." [ref=f6e1104]
+                    - gridcell "No contributions on May 16th." [ref=f6e1105]
+                    - gridcell "No contributions on May 23rd." [ref=f6e1106]
+                    - gridcell "No contributions on May 30th." [ref=f6e1107]
+                    - gridcell "3 contributions on June 6th." [ref=f6e1108]
+                    - gridcell "6 contributions on June 13th." [ref=f6e1109]
+                    - gridcell "No contributions on June 20th." [ref=f6e1110]
+                    - gridcell "No contributions on June 27th." [ref=f6e1111]
+                    - gridcell "No contributions on July 4th." [ref=f6e1112]
+                    - gridcell "18 contributions on July 11th." [ref=f6e1113]
+                    - gridcell "4 contributions on July 18th." [ref=f6e1114]
+                    - gridcell "No contributions on July 25th." [ref=f6e1115]
+                    - gridcell "No contributions on August 1st." [ref=f6e1116]
+                    - gridcell "No contributions on August 8th." [ref=f6e1117]
+                    - gridcell [ref=f6e1118]
+              - generic [ref=f6e1119]:
+                - link "Learn how we count contributions" [ref=f6e1121] [cursor=pointer]:
+                  - /url: https://docs.github.com/articles/why-are-my-contributions-not-showing-up-on-my-profile
+                - generic [ref=f6e1122]:
+                  - generic [ref=f6e1123]: Less
+                  - generic [ref=f6e1124]: No contributions.
+                  - generic [ref=f6e1126]: Low contributions.
+                  - generic [ref=f6e1128]: Medium-low contributions.
+                  - generic [ref=f6e1130]: Medium-high contributions.
+                  - generic [ref=f6e1132]: High contributions.
+                  - generic [ref=f6e1134]: More
+          - generic [ref=f6e1135]:
+            - list [ref=f6e1137]:
+              - listitem [ref=f6e1138]:
+                - link "Contribution activity in 2026, 1 of 4" [ref=f6e1139] [cursor=pointer]:
+                  - /url: /Ali747711?tab=overview&from=2026-08-01&to=2026-08-14
+                  - text: "2026"
+              - listitem [ref=f6e1140]:
+                - link "Contribution activity in 2025, 2 of 4" [ref=f6e1141] [cursor=pointer]:
+                  - /url: /Ali747711?tab=overview&from=2025-12-01&to=2025-12-31
+                  - text: "2025"
+              - listitem [ref=f6e1142]:
+                - link "Contribution activity in 2024, 3 of 4" [ref=f6e1143] [cursor=pointer]:
+                  - /url: /Ali747711?tab=overview&from=2024-12-01&to=2024-12-31
+                  - text: "2024"
+              - listitem [ref=f6e1144]:
+                - link "Contribution activity in 2023, 4 of 4" [ref=f6e1145] [cursor=pointer]:
+                  - /url: /Ali747711?tab=overview&from=2023-12-01&to=2023-12-31
+                  - text: "2023"
+            - heading "Contribution activity" [level=2] [ref=f6e1146]
+            - generic [ref=f6e1148]:
+              - heading "August 2026" [level=3] [ref=f6e1149]
+              - group [ref=f6e1157]:
+                - button [expanded] [ref=f6e1158] [cursor=pointer]
+                - list [ref=f6e1164]:
+                  - listitem [ref=f6e1165]:
+                    - generic [ref=f6e1166]:
+                      - link "Ali747711/native-finance" [ref=f6e1167] [cursor=pointer]:
+                        - /url: /Ali747711/native-finance
+                      - link "10 commits" [ref=f6e1168] [cursor=pointer]:
+                        - /url: /Ali747711/native-finance/commits?author=Ali747711&since=2026-08-01&until=2026-08-15
+                    - img "53% of commits in August were made to Ali747711/native-finance" [ref=f6e1170]
+                  - listitem [ref=f6e1172]:
+                    - generic [ref=f6e1173]:
+                      - link "Ali747711/finger-tracker" [ref=f6e1174] [cursor=pointer]:
+                        - /url: /Ali747711/finger-tracker
+                      - link "5 commits" [ref=f6e1175] [cursor=pointer]:
+                        - /url: /Ali747711/finger-tracker/commits?author=Ali747711&since=2026-08-01&until=2026-08-15
+                    - img "27% of commits in August were made to Ali747711/finger-tracker" [ref=f6e1177]
+                  - listitem [ref=f6e1179]:
+                    - generic [ref=f6e1180]:
+                      - link "Ali747711/Ali747711" [ref=f6e1181] [cursor=pointer]:
+                        - /url: /Ali747711/Ali747711
+                      - link "4 commits" [ref=f6e1182] [cursor=pointer]:
+                        - /url: /Ali747711/Ali747711/commits?author=Ali747711&since=2026-08-01&until=2026-08-15
+                    - img "22% of commits in August were made to Ali747711/Ali747711" [ref=f6e1184]
+              - group [ref=f6e1192]:
+                - button "Created 1 repository" [expanded] [ref=f6e1193] [cursor=pointer]
+                - list [ref=f6e1200]:
+                  - listitem [ref=f6e1201]:
+                    - link "Ali747711/finger-tracker" [ref=f6e1206] [cursor=pointer]:
+                      - /url: /Ali747711/finger-tracker
+                    - generic [ref=f6e1207]: Python
+                    - generic [ref=f6e1210]:
+                      - generic [ref=f6e1211]: This contribution was made on Aug 14
+                      - time [ref=f6e1212]: Aug 14
+              - generic [ref=f6e1217]:
+                - generic [ref=f6e1218]:
+                  - heading [level=4] [ref=f6e1219]:
+                    - text: Created a pull request in
+                    - link "Ali747711/native-finance" [ref=f6e1220] [cursor=pointer]:
+                      - /url: /Ali747711/native-finance
+                    - text: that received 1 comment
+                  - link [ref=f6e1221] [cursor=pointer]:
+                    - /url: /Ali747711?tab=overview&from=2026-08-01&to=2026-08-31
+                    - time [ref=f6e1222]: Aug 3
+                - generic [ref=f6e1226]:
+                  - heading [level=3] [ref=f6e1227]:
+                    - link "Dev" [ref=f6e1228] [cursor=pointer]:
+                      - /url: /Ali747711/native-finance/pull/2
+                  - paragraph [ref=f6e1230]:
+                    - text: Summary by CodeRabbit
+                    - strong [ref=f6e1231]: New Features
+                    - text: Replaced the Home screen placeholder with a subscription dashboard showing user details, balance, renewal dat…
+                  - generic [ref=f6e1232]:
+                    - generic [ref=f6e1233]: +447 −33 lines changed •
+                    - text: 1 comment
+              - group [ref=f6e1245]:
+                - button "Opened 2 other pull requests in 1 repository" [expanded] [ref=f6e1246] [cursor=pointer]
+                - group [ref=f6e1254]:
+                  - button "Ali747711/native-finance 2 merged" [expanded] [ref=f6e1255] [cursor=pointer]:
+                    - generic [ref=f6e1256]:
+                      - generic [ref=f6e1257]: Ali747711/native-finance
+                      - generic [ref=f6e1258]:
+                        - generic [ref=f6e1259]: "2"
+                        - text: merged
+                  - list [ref=f6e1265]:
+                    - listitem [ref=f6e1266]:
+                      - link "Dev" [ref=f6e1271] [cursor=pointer]:
+                        - /url: /Ali747711/native-finance/pull/4
+                      - generic [ref=f6e1272]:
+                        - generic [ref=f6e1273]: This contribution was made on Aug 3
+                        - time [ref=f6e1274]: Aug 3
+                    - listitem [ref=f6e1275]:
+                      - link "Dev" [ref=f6e1280] [cursor=pointer]:
+                        - /url: /Ali747711/native-finance/pull/3
+                      - generic [ref=f6e1281]:
+                        - generic [ref=f6e1282]: This contribution was made on Aug 3
+                        - time [ref=f6e1283]: Aug 3
+            - generic [ref=f6e1284]:
+              - generic: Loading
+              - button "Show more activity" [ref=f6e1286] [cursor=pointer]
+  - contentinfo [ref=f6e1287]:
+    - heading "Footer" [level=2] [ref=f6e1288]
+    - generic [ref=f6e1289]:
+      - generic [ref=f6e1290]:
+        - link "GitHub Homepage" [ref=f6e1291] [cursor=pointer]:
+          - /url: https://github.com
+        - generic [ref=f6e1294]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=f6e1295]:
+        - heading "Footer navigation" [level=3] [ref=f6e1296]
+        - list "Footer navigation" [ref=f6e1297]:
+          - listitem [ref=f6e1298]:
+            - link "Terms" [ref=f6e1299] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=f6e1300]:
+            - link "Privacy" [ref=f6e1301] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=f6e1302]:
+            - link "Security" [ref=f6e1303] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=f6e1304]:
+            - link "Status" [ref=f6e1305] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=f6e1306]:
+            - link "Community" [ref=f6e1307] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=f6e1308]:
+            - link "Docs" [ref=f6e1309] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=f6e1310]:
+            - link "Contact" [ref=f6e1311] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=f6e1312]:
+            - button "Manage cookies" [ref=f6e1314] [cursor=pointer]
+          - listitem [ref=f6e1315]:
+            - button "Do not share my personal information" [ref=f6e1317] [cursor=pointer]
